@@ -10,7 +10,7 @@ class FlavorConfig {
   FlavorConfig._internal(this.flavor, this.apiBaseUrl, this.appTitle);
 
   static const _baseUrl = 'id.midosaurus.nudishous';
-  static const _appName = 'id.midosaurus.nudishous';
+  static const _appName = 'Nudishous';
   // static const _offUser = 'midosaurus_dev';
   // static const _offPassword = 'rahasia_midosaurus';
 

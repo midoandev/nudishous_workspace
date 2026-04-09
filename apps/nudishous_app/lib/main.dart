@@ -1,9 +1,10 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/sandbox.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const NudishousApp());
 }
 
@@ -12,14 +13,12 @@ class NudishousApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final config = FlavorConfig.instance;
     return MaterialApp(
-      title: 'Nudishous',
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
-        scaffoldBackgroundColor: AppColors.background,
-        useMaterial3: true,
-      ),
-      // Membungkus SandboxPage dengan Cubit-nya
+      title: config.appTitle,
+      debugShowCheckedModeBanner: config.flavor == Flavor.dev,
+      theme:AppTheme.light,
+      darkTheme: AppTheme.dark,
       home: BlocProvider(
         create: (context) => SandboxCubit(),
         child: const SandboxPage(),

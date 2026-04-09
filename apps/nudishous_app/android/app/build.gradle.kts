@@ -20,20 +20,17 @@ android {
     }
 
 
-    flavorDimensions += "env"
+    flavorDimensions += "flavor-type"
 
-    // 2. Definisikan Varian (Dev & Prod)
     productFlavors {
         create("dev") {
-            dimension = "env"
-            applicationIdSuffix = ".dev"   // Hasil: id.midosaurus.nudishous.dev
-            versionNameSuffix = "-dev"
-            manifestPlaceholders["appName"] = "Nudishous DEV"
+            dimension = "flavor-type"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders["appName"] = "Nudishous Dev"
         }
 
         create("prod") {
-            dimension = "env"
-            // Tidak ada suffix, ID asli
+            dimension = "flavor-type"
             manifestPlaceholders["appName"] = "Nudishous"
         }
     }
