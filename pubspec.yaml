@@ -28,7 +28,7 @@ melos:
       description: Menjalankan flutter test di semua package yang memiliki folder test.
 
     clean:
-      run: melos exec -- "flutter clean"
+      run: melos exec -c 1 -- "flutter clean"
       description: "Membersihkan build files di seluruh package"
 
     format:
