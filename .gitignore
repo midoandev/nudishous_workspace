@@ -1,0 +1,24 @@
+# IDE & System files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+Thumbs.db
+
+# Dart/Flutter Root specific
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Melos specific
+.melos/
+melos_*.iml
+
+# Sensitive Data (Firebase/Env)
+*.secret
+*.env
+ios/Flutter/Generated.xcconfig
+android/local.properties

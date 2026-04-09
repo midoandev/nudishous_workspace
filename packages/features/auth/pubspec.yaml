@@ -1,0 +1,19 @@
+name: auth
+description: "A new Flutter package project."
+version: 0.0.1
+resolution: workspace
+
+homepage:
+
+environment:
+  sdk: ^3.11.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  core_logic: any
+  core_ui: any
+  firebase_service: any
+  local_storage: any

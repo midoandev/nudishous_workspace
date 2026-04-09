@@ -1,0 +1,40 @@
+name: nudishous_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+workspace:
+  - apps/nudishous_app
+  - packages/core/core_logic
+  - packages/core/core_ui
+  - packages/data/local_storage
+  - packages/data/firebase_service
+  - packages/data/openfood_api
+  - packages/features/sandbox
+  - packages/features/auth
+
+dev_dependencies:
+  melos: ^7.5.1
+
+melos:
+  scripts:
+    analyze:
+      exec: flutter analyze .
+      description: Menjalankan flutter analyze di semua package.
+
+    test:
+      exec: flutter test
+      description: Menjalankan flutter test di semua package yang memiliki folder test.
+
+    clean:
+      run: melos exec -- "flutter clean"
+      description: "Membersihkan build files di seluruh package"
+
+    format:
+      exec: dart format .
+      description: Melakukan formatting kode di seluruh workspace.
+
+    generate:
+      run: melos exec -c 1 --depends-on build_runner -- "dart run build_runner build --delete-conflicting-outputs"
+      description: Menjalankan build_runner di semua package yang membutuhkannya.

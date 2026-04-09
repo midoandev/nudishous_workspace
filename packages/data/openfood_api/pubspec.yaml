@@ -1,0 +1,20 @@
+name: openfood_api
+description: "A new Flutter package project."
+version: 0.0.1
+resolution: workspace
+
+homepage:
+
+environment:
+  sdk: ^3.11.0
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  openfoodfacts: ^3.30.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
