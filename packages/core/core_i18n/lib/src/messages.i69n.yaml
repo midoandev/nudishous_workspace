@@ -1,0 +1,8 @@
+app:
+  title: "Nudishous"
+  tagline: "Smart Nutrition Planner"
+
+sandbox:
+  title: "Nutrition Sandbox"
+  empty_plate: "Your plate is empty. Add some food!"
+  calories_count: "Calories: %d kcal" # %d untuk angka

@@ -8,10 +8,12 @@ workspace:
   - apps/nudishous_app
   - packages/core/core_logic
   - packages/core/core_ui
+  - packages/core/core_i18n
   - packages/data/local_storage
   - packages/data/firebase_service
   - packages/data/openfood_api
   - packages/features/sandbox
+  - packages/features/profile
   - packages/features/auth
 
 dev_dependencies:

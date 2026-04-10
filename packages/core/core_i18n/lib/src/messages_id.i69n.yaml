@@ -1,0 +1,8 @@
+app:
+  title: "Nudishous"
+  tagline: "Perencana Nutrisi Pintar"
+
+sandbox:
+  title: "Sandbox Nutrisi"
+  empty_plate: "Piringmu kosong. Ayo tambah makanan!"
+  calories_count: "Kalori: %d kkal"

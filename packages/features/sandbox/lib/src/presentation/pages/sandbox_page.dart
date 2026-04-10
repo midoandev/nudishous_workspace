@@ -4,7 +4,8 @@ import 'package:core_ui/core_ui.dart';
 import '../cubits/sandbox_cubit.dart';
 import '../cubits/sandbox_state.dart';
 
-class SandboxPage extends StatelessWidget {
+@RoutePage()
+class SandboxPage extends StatelessWidget implements AutoRouteWrapper {
   const SandboxPage({super.key});
 
   @override
@@ -48,5 +49,10 @@ class SandboxPage extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider(create: (context) => SandboxCubit(), child: this);
   }
 }

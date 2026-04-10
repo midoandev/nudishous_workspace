@@ -1,4 +1,4 @@
-name: sandbox
+name: profile
 description: "A new Flutter package project."
 version: 0.0.1
 resolution: workspace
@@ -15,8 +15,8 @@ dependencies:
 
   core_logic: any
   core_ui: any
-  openfood_api: any
   firebase_service: any
+  local_storage: any
 
 dev_dependencies:
   auto_route_generator: any

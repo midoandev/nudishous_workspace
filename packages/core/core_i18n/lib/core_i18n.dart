@@ -1,0 +1,22 @@
+library;
+
+import 'src/messages.i69n.dart';
+import 'src/messages_id.i69n.dart';
+
+export 'src/messages.i69n.dart';
+
+class I18n {
+  static Messages _current = const Messages();
+
+  static Messages get s => _current;
+
+  static void load(String locale) {
+    switch (locale) {
+      case 'id':
+        _current = const Messages_id();
+        break;
+      default:
+        _current = const Messages();
+    }
+  }
+}

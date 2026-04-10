@@ -32,4 +32,4 @@ migrate_working_dir/
 # Symbol files
 *.pdb
 *.obj
-*.gr.dart
+*.i69n.dart

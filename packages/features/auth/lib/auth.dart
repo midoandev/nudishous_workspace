@@ -1,5 +1,3 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:auth/src/presentation/pages/auth_page.dart';
+export 'auth_router.gr.dart';
+export 'package:auth/auth_router.dart';

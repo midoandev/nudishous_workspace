@@ -1,28 +1,28 @@
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:sandbox/sandbox.dart';
+
+import 'core/router/app_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const NudishousApp());
+  runApp(NudishousApp());
 }
 
 class NudishousApp extends StatelessWidget {
-  const NudishousApp({super.key});
+  NudishousApp({super.key});
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
     final config = FlavorConfig.instance;
-    return MaterialApp(
+    return MaterialApp.router(
       title: config.appTitle,
       debugShowCheckedModeBanner: config.flavor == Flavor.dev,
-      theme:AppTheme.light,
+      theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      home: BlocProvider(
-        create: (context) => SandboxCubit(),
-        child: const SandboxPage(),
-      ),
+      routerConfig: _appRouter.config(),
     );
   }
 }

@@ -11,18 +11,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Feature
   sandbox: any
-  flutter_bloc: ^9.1.1
+  profile: any
+  auth: any
+
+  #Core
   core_ui: any
   core_logic: any
 
-  cupertino_icons: ^1.0.9
-
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  auto_route_generator: any
+  build_runner: any
 
-  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
