@@ -10,6 +10,8 @@ Thumbs.db
 # Dart/Flutter Root specific
 .dart_tool/
 .packages
+pubspec.lock
+
 .flutter-plugins
 .flutter-plugins-dependencies
 

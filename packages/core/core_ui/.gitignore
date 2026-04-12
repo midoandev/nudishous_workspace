@@ -32,3 +32,5 @@ migrate_working_dir/
 # Symbol files
 *.pdb
 *.obj
+*.gr.dart
+*.config.dart

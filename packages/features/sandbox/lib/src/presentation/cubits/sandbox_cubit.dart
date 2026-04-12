@@ -1,6 +1,7 @@
 import 'package:core_logic/core_logic.dart';
 import 'sandbox_state.dart';
 
+@singleton
 class SandboxCubit extends Cubit<SandboxUpdated> {
   SandboxCubit() : super(const SandboxUpdated([]));
 

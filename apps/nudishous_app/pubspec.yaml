@@ -20,8 +20,14 @@ dependencies:
   core_ui: any
   core_logic: any
 
+  #data
+  local_storage: any
+  remote_api: any
+  firebase_service: any
+
 dev_dependencies:
   auto_route_generator: any
+  injectable_generator: ^2.12.1
   build_runner: any
 
 

@@ -1,12 +1,31 @@
 import 'package:core_logic/core_logic.dart';
 
-class AuthState extends Equatable {
-  @override
-  List<Object?> get props => throw UnimplementedError();
+sealed class AuthUpdated extends BaseState {
+  const AuthUpdated();
 }
 
+class AuthInitial extends AuthUpdated {
+  const AuthInitial();
+}
 
-class AuthUpdated extends BaseState {
+class AuthLoading extends AuthUpdated {
+  const AuthLoading();
+}
+
+class AuthError extends AuthUpdated {
+  final String message;
+  const AuthError(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class AuthAuthenticated extends AuthUpdated {
+  // final AuthEntity user;
+  // const AuthAuthenticated(this.user);
   @override
   List<Object?> get props => [];
+}
+
+class AuthUnauthenticated extends AuthUpdated {
+  const AuthUnauthenticated();
 }

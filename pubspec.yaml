@@ -5,13 +5,21 @@ environment:
   sdk: ^3.11.0
 
 workspace:
+  #app_shell
   - apps/nudishous_app
+
+  #core
   - packages/core/core_logic
   - packages/core/core_ui
   - packages/core/core_i18n
+
+  #data
   - packages/data/local_storage
   - packages/data/firebase_service
   - packages/data/openfood_api
+  - packages/data/remote_api
+
+  #feature
   - packages/features/sandbox
   - packages/features/profile
   - packages/features/auth

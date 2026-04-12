@@ -33,3 +33,4 @@ migrate_working_dir/
 *.pdb
 *.obj
 *.gr.dart
+*.config.dart
