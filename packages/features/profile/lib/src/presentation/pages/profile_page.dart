@@ -21,16 +21,18 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileUpdated>(
-      builder: (context, state) {
-        return switch (state) {
-          ProfileGuest()   => const ProfileGuestView(),  // ← tidak perlu AuthCubit!
-          ProfileLoading() => const AppLoadingScreen(),
-          ProfileLoaded()  => ProfileAuthenticatedView(user: state.user),
-          // ProfileError()   => ProfileErrorView(message: state.message),
-          _                => const SizedBox.shrink(),
-        };
-      },
+    return Scaffold(
+      body: BlocBuilder<ProfileCubit, ProfileUpdated>(
+        builder: (context, state) {
+          return switch (state) {
+            ProfileGuest()   => const ProfileGuestView(),  // ← tidak perlu AuthCubit!
+            ProfileLoading() => const AppLoadingScreen(),
+            ProfileLoaded()  => ProfileAuthenticatedView(user: state.user),
+            // ProfileError()   => ProfileErrorView(message: state.message),
+            _                => const SizedBox.shrink(),
+          };
+        },
+      ),
     );
   }
 }

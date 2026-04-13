@@ -1,4 +1,5 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/profile.dart';
 import 'package:sandbox/sandbox.dart';
@@ -10,6 +11,12 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
+      appBarBuilder: (context, tabsRouter) {
+        final isMain = tabsRouter.activeIndex == 0;
+        return AppBar(
+          title: Text(isMain ? 'Dashboard' : 'Profile'),
+        );
+      },
       routes: [
         SandboxRoute(),
         // DiscoveryRoute(),
@@ -20,8 +27,8 @@ class DashboardPage extends StatelessWidget {
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
           // Tips Senior: Gunakan warna dari AppTheme yang sudah kita buat sebelumnya
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          selectedItemColor: context.colorScheme.primary,
+          unselectedItemColor: context.colorScheme.onSurfaceVariant,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.bakery_dining),

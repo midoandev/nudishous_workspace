@@ -12,7 +12,13 @@ class AuthCubit extends Cubit<AuthUpdated> {
   AuthCubit(
       this._loginUseCase,
       this._preferenceService,
-      ) : super(const AuthInitial());
+      ) : super(const AuthLoginInitial());
+
+  String get title => state == AuthLoginInitial() ? 'Masuk' : 'Daftar';
+
+  void changePage() {
+    emit(state == AuthRegisterInitial() ? const AuthLoginInitial() : const AuthRegisterInitial());
+  }
 
   Future<void> login({
     required String email,

@@ -12,31 +12,36 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AuthCubit>(),
-      child: this,
-    );
+    return BlocProvider(create: (_) => getIt<AuthCubit>(), child: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthUpdated>(
+    return BlocConsumer<AuthCubit, AuthUpdated>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
           // ✅ Setelah login → otomatis pop kembali ke Profile
           context.router.pop();
         }
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Masuk'),
-        ),
-        body:
-            LoginView(onSwitchToRegister: () {})
-      ),
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(state == AuthLoginInitial() ? 'Masuk' : 'Daftar'),
+          ),
+          body: switch (state) {
+            AuthLoginInitial() => LoginView(
+              onSwitchToRegister: () => context.read<AuthCubit>().changePage(),
+            ),
+            AuthRegisterInitial() => RegisterView(
+              onSwitchToRegister: () => context.read<AuthCubit>().changePage(),
+            ),
+            _ => const SizedBox.shrink(),
+          },
+        );
+      },
     );
   }
-
 }
 
 enum AuthMode { login, register }

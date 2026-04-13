@@ -26,7 +26,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Masuk')),
       body: BlocBuilder<AuthCubit, AuthUpdated>(
         builder: (context, state) {
           return Padding(

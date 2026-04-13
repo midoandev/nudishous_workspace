@@ -4,8 +4,15 @@ sealed class AuthUpdated extends BaseState {
   const AuthUpdated();
 }
 
-class AuthInitial extends AuthUpdated {
-  const AuthInitial();
+// class AuthInitial extends AuthUpdated {
+//   const AuthInitial();
+// }
+class AuthLoginInitial extends AuthUpdated {
+  const AuthLoginInitial();
+}
+
+class AuthRegisterInitial extends AuthUpdated {
+  const AuthRegisterInitial();
 }
 
 class AuthLoading extends AuthUpdated {

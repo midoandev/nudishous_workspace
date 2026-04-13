@@ -11,10 +11,6 @@ class SandboxPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nudishous Sandbox'),
-        backgroundColor: AppColors.primary,
-      ),
       body: BlocBuilder<SandboxCubit, SandboxUpdated>(
         builder: (context, state) {
           return Column(
