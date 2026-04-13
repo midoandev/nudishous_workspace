@@ -4,7 +4,7 @@ class DioConfig {
   // Diambil dari --dart-define saat build (flavor)
   static const baseUrl = String.fromEnvironment(
     'BASE_URL',
-    defaultValue: 'https://dev-api.nudishous.com', // fallback dev
+    defaultValue: 'https://dummyjson.com/', // fallback dev
   );
 
   static const connectTimeout = Duration(seconds: 30);

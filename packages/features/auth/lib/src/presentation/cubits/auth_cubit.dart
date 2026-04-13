@@ -1,23 +1,36 @@
-import 'package:auth/src/presentation/cubits/auth_state.dart';
 import 'package:core_logic/core_logic.dart';
+import 'package:local_storage/local_storage.dart';
+
+import '../../../auth.dart';
+import '../../domain/usecases/login_usecase.dart';
 
 @singleton
 class AuthCubit extends Cubit<AuthUpdated> {
-  AuthCubit() : super(AuthInitial());
+  final LoginUseCase _loginUseCase;
+  final PreferenceService _preferenceService;
 
-  Future<void> login({required String email, required String password}) async {
-    emit(const AuthLoading()); // ← dari BaseState
+  AuthCubit(
+      this._loginUseCase,
+      this._preferenceService,
+      ) : super(const AuthInitial());
 
-    // final result = await _loginUseCase(email: email, password: password);
-    //
-    // result.fold(
-    //       (failure) => emit(AuthError(failure.message)), // ← dari BaseState
-    //       (user) => emit(AuthAuthenticated()),         // ← spesifik auth
-    // );
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
+    emit(const AuthLoading());
+    final result = await _loginUseCase.call(
+      email: email,
+      password: password,
+    );
+    result.fold(
+          (failure) => emit(AuthError(failure.message)),
+          (_) => emit(const AuthAuthenticated()), // token sudah disimpan di repo
+    );
   }
 
   Future<void> logout() async {
-    // await _logoutUseCase();
-    emit(const AuthUnauthenticated()); // ← spesifik auth
+    await _preferenceService.clearToken();
+    emit(const AuthUnauthenticated());
   }
 }

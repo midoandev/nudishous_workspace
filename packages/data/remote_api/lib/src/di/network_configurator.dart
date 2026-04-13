@@ -1,4 +1,5 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:local_storage/local_storage.dart';
 
 import 'network_configurator.config.dart';
 
@@ -6,6 +7,8 @@ import 'network_configurator.config.dart';
   initializerName: 'initNetwork',
   preferRelativeImports: true,
   asExtension: false,
+  ignoreUnregisteredTypes: [
+    PreferenceService, // ← suppress warning, resolve dari luar
+  ],
 )
-Future<void> configureNetworkInjection() async =>
-    initNetwork(getIt);
+Future<void> configureNetworkInjection() async => initNetwork(getIt);

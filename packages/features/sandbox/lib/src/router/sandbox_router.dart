@@ -5,7 +5,7 @@ import 'sandbox_router.gr.dart';
 class SandboxRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(path: 'main', page: SandboxRoute.page, initial: true),
+    AutoRoute(path: NavConstants.sandbox, page: SandboxRoute.page),
     // AutoRoute(path: 'detail', page: FoodDetailRoute.page),
   ];
 }

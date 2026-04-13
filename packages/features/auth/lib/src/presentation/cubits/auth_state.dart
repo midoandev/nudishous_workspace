@@ -21,11 +21,14 @@ class AuthError extends AuthUpdated {
 
 class AuthAuthenticated extends AuthUpdated {
   // final AuthEntity user;
-  // const AuthAuthenticated(this.user);
+  const AuthAuthenticated();
   @override
   List<Object?> get props => [];
 }
 
 class AuthUnauthenticated extends AuthUpdated {
   const AuthUnauthenticated();
+  @override
+  List<Object?> get props => [];
 }
+

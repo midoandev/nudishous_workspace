@@ -12,9 +12,9 @@ dependencies:
     sdk: flutter
 
   #Feature
+  auth: any
   sandbox: any
   profile: any
-  auth: any
 
   #Core
   core_ui: any

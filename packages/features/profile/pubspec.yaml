@@ -17,6 +17,7 @@ dependencies:
   core_ui: any
   firebase_service: any
   local_storage: any
+  remote_api: any
 
 dev_dependencies:
   injectable_generator: ^2.12.1

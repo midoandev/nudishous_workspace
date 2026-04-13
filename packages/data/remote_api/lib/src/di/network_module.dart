@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../config/dio_config.dart';
 import '../interceptors/auth_interceptor.dart';
+import '../interceptors/error_interceptor.dart';
 
 @module
 abstract class NetworkModule {
@@ -24,9 +25,9 @@ abstract class NetworkModule {
     );
 
     dio.interceptors.addAll([
-      AuthInterceptor(secureStorageService), // ← inject token
-      PrettyDioLogger(                        // ← logging
-        requestHeader: true,
+      AuthInterceptor(secureStorageService),
+      ErrorInterceptor(),
+      PrettyDioLogger(
         requestBody: true,
         responseBody: true,
         error: true,

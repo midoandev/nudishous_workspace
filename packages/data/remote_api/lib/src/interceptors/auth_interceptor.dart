@@ -20,16 +20,4 @@ class AuthInterceptor extends Interceptor {
     handler.next(options);
   }
 
-  @override
-  void onError(
-      DioException err,
-      ErrorInterceptorHandler handler,
-      ) async {
-    if (err.response?.statusCode == 401) {
-      // Token expired — clear token
-      await _secureStorageService.clearToken();
-      // Bisa trigger logout via getIt jika perlu
-    }
-    handler.next(err);
-  }
 }

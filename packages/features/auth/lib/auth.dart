@@ -1,4 +1,6 @@
-export 'package:auth/src/presentation/pages/auth_page.dart';
-export 'auth_router.gr.dart';
-export 'package:auth/auth_router.dart';
+export 'src/router/auth_router.dart';
+export 'src/router/auth_router.gr.dart';
+
 export 'src/di/auth_configurator.dart';
+export 'src/presentation/cubits/auth_cubit.dart';
+export 'src/presentation/cubits/auth_state.dart';
