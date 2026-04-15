@@ -8,8 +8,12 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   i69n: ^3.5.0
-  intl: ^0.20.2
+  core_logic: any
 
 dev_dependencies:
   injectable_generator: ^2.12.1

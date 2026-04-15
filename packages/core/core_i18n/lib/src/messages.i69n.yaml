@@ -2,7 +2,17 @@ app:
   title: "Nudishous"
   tagline: "Smart Nutrition Planner"
 
+settings:
+  title: "Settings"
+  language: "Language"
+  theme: "App Theme"
+  dark_mode: "Dark Mode"
+  about: "About App"
+  select_language: "Select Language"
+
 sandbox:
+  language_name: "English"
   title: "Nutrition Sandbox"
   empty_plate: "Your plate is empty. Add some food!"
-  calories_count: "Calories: %d kcal" # %d untuk angka
+  calories_count(int count): "Calories: _count kcal"
+  protein_count(double amount): "Protein: _amount g"

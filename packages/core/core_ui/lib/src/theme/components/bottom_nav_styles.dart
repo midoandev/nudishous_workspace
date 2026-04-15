@@ -8,7 +8,7 @@ class BottomNavStyles {
   static NavigationBarThemeData get theme => NavigationBarThemeData(
     labelTextStyle: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return AppTextStyle.labelMedium.copyWith(color: AppColors.primary);
+        return AppTextStyle.labelMedium.copyWith(color: AppColors.surfaceContainer);
       }
       return AppTextStyle.labelMedium;
     }),

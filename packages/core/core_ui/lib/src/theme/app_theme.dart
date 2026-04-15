@@ -15,13 +15,13 @@ abstract final class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       primary: AppColors.primary,
-      secondary: AppColors.accent,
-      surfaceContainer: AppColors.surfaceContainer,
-      surface: AppColors.surface,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,              // ✅ tambah
-      onSurface: AppColors.textMain,          // ✅ tambah
-      onSurfaceVariant: AppColors.textSecondary, // ✅ tambah
+      // secondary: AppColors.accent,
+      // surfaceContainer: AppColors.surfaceContainer,
+      // surface: AppColors.surface,
+      // onPrimary: Colors.white,
+      // onSecondary: Colors.white,              // ✅ tambah
+      // onSurface: AppColors.textMain,          // ✅ tambah
+      // onSurfaceVariant: AppColors.textSecondary, // ✅ tambah
     ),
 
     appBarTheme: AppBarStyles.theme,
@@ -76,13 +76,13 @@ abstract final class AppTheme {
       seedColor: AppColors.primary,
       brightness: Brightness.dark,
       primary: AppColors.primaryLight,
-      secondary: AppColors.accent,
-      surfaceContainer: const Color(0xFF23261F),
-      surface: const Color(0xFF1A1C18),
-      onPrimary: const Color(0xFF1A2500),   // ✅ fix kontras
-      onSecondary: Colors.white,             // ✅ tambah
-      onSurface: const Color(0xFFE2E3DC),   // ✅ tambah
-      onSurfaceVariant: const Color(0xFFC6C8BE), // ✅ tambah
+      // secondary: AppColors.accent,
+      // surfaceContainer: const Color(0xFF23261F),
+      // surface: const Color(0xFF1A1C18),
+      // onPrimary: const Color(0xFF1A2500),   // ✅ fix kontras
+      // onSecondary: Colors.white,             // ✅ tambah
+      // onSurface: const Color(0xFFE2E3DC),   // ✅ tambah
+      // onSurfaceVariant: const Color(0xFFC6C8BE), // ✅ tambah
     ),
 
     appBarTheme: const AppBarTheme(

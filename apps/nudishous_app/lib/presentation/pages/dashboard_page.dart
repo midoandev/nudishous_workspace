@@ -1,3 +1,4 @@
+import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,13 @@ class DashboardPage extends StatelessWidget {
       appBarBuilder: (context, tabsRouter) {
         final isMain = tabsRouter.activeIndex == 0;
         return AppBar(
-          title: Text(isMain ? 'Dashboard' : 'Profile'),
+          title: Text(isMain ? context.s.sandbox.title : 'Profile'),
+          actions: [
+            if (!isMain)
+              IconButton(onPressed: () async {
+                await context.navigateToPath(NavConstants.settings);
+              }, icon: Icon(Icons.settings))
+          ],
         );
       },
       routes: [
@@ -26,13 +33,15 @@ class DashboardPage extends StatelessWidget {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           // Tips Senior: Gunakan warna dari AppTheme yang sudah kita buat sebelumnya
           selectedItemColor: context.colorScheme.primary,
           unselectedItemColor: context.colorScheme.onSurfaceVariant,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.bakery_dining),
-              label: 'Sandbox',
+              label: context.s.sandbox.title,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

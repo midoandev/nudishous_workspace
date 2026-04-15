@@ -13,8 +13,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  core_i18n: any
   core_logic: any
   core_ui: any
+
   firebase_service: any
   local_storage: any
   remote_api: any

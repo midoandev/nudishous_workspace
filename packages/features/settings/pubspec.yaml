@@ -1,8 +1,8 @@
-name: nudishous
-description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+name: settings
+description: "A new Flutter package project."
+version: 0.0.1
 resolution: workspace
-version: 1.0.0+1
+homepage:
 
 environment:
   sdk: ^3.11.0
@@ -12,25 +12,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #Feature
-  auth: any
-  sandbox: any
-  profile: any
-  settings: any
-
-  #Core
   core_i18n: any
-  core_ui: any
   core_logic: any
+  core_ui: any
 
-  #data
+  firebase_service: any
   local_storage: any
   remote_api: any
-  firebase_service: any
 
 dev_dependencies:
-  auto_route_generator: any
   injectable_generator: ^2.12.1
+  auto_route_generator: any
   build_runner: any
 
 flutter:
