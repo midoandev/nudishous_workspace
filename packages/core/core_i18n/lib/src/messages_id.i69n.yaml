@@ -6,9 +6,13 @@ settings:
   title: "Pengaturan"
   language: "Bahasa"
   theme: "Tema Aplikasi"
-  dark_mode: "Mode Gelap"
   about: "Tentang Aplikasi"
   select_language: "Pilih Bahasa"
+  english: "English"
+  indonesia: "Indonesia"
+  select_theme: "Pilih Tema"
+  theme_light: "Mode Terang"
+  theme_dark: "Mode Gelap"
 
 sandbox:
   language_name: "Indonesia"

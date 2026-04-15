@@ -4,6 +4,17 @@ import 'package:flutter/material.dart';
 class AppTextStyle {
   AppTextStyle._();
 
+  static const theme = TextTheme(
+    displayLarge: AppTextStyle.displayLarge,
+    headlineLarge: AppTextStyle.headlineLarge,
+    headlineMedium: AppTextStyle.headlineMedium,
+    titleLarge: AppTextStyle.titleLarge,
+    titleMedium: AppTextStyle.titleMedium,
+    bodyLarge: AppTextStyle.bodyLarge,
+    bodyMedium: AppTextStyle.bodyMedium,
+    labelLarge: AppTextStyle.labelLarge,
+    labelMedium: AppTextStyle.labelMedium,
+  );
   static const _fontFamily = 'Raleway'; // ganti sesuai font kamu
 
   static const displayLarge = TextStyle(

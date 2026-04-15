@@ -18,9 +18,12 @@ class DashboardPage extends StatelessWidget {
           title: Text(isMain ? context.s.sandbox.title : 'Profile'),
           actions: [
             if (!isMain)
-              IconButton(onPressed: () async {
-                await context.navigateToPath(NavConstants.settings);
-              }, icon: Icon(Icons.settings))
+              IconButton(
+                onPressed: () async {
+                  await context.navigateToPath(NavConstants.settings);
+                },
+                icon: Icon(Icons.settings),
+              ),
           ],
         );
       },
@@ -35,18 +38,13 @@ class DashboardPage extends StatelessWidget {
           onTap: tabsRouter.setActiveIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          // Tips Senior: Gunakan warna dari AppTheme yang sudah kita buat sebelumnya
-          selectedItemColor: context.colorScheme.primary,
-          unselectedItemColor: context.colorScheme.onSurfaceVariant,
+          elevation: 2,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.bakery_dining),
               label: context.s.sandbox.title,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           ],
         );
       },

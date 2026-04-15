@@ -9,6 +9,11 @@ settings:
   dark_mode: "Dark Mode"
   about: "About App"
   select_language: "Select Language"
+  english: "English"
+  indonesia: "Indonesia"
+  select_theme: "Select Theme"
+  theme_light: "Light Mode"
+  theme_dark: "Dark Mode"
 
 sandbox:
   language_name: "English"

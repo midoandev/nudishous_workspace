@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   i69n: ^3.5.0
   core_logic: any
+  local_storage: any
 
 dev_dependencies:
   injectable_generator: ^2.12.1
