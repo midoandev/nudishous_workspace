@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/auth_cubit.dart';
 import '../cubits/auth_state.dart';
@@ -12,7 +14,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(create: (_) => getIt<AuthCubit>(), child: this);
+    return BlocProvider.value(value: getIt<AuthCubit>(), child: this);
   }
 
   @override
@@ -21,7 +23,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
       listener: (context, state) {
         if (state is AuthAuthenticated) {
           // ✅ Setelah login → otomatis pop kembali ke Profile
-          context.router.pop();
+          context.router.back();
         }
       },
       builder: (context, state) {
@@ -43,5 +45,3 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
     );
   }
 }
-
-enum AuthMode { login, register }

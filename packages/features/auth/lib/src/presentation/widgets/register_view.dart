@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:core_logic/core_logic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth.dart';
 

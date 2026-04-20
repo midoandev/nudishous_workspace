@@ -1,5 +1,8 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:local_storage/local_storage.dart';
+
 import '../../domain/usecases/get_profile_use_case.dart';
 import 'profile_state.dart';
 

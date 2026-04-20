@@ -8,8 +8,7 @@ class ErrorInterceptor extends Interceptor {
     final exception = switch (err.type) {
       DioExceptionType.connectionTimeout ||
       DioExceptionType.receiveTimeout ||
-      DioExceptionType.sendTimeout =>
-      const NetworkException(),
+      DioExceptionType.sendTimeout => const NetworkException(),
 
       DioExceptionType.badResponse => switch (err.response?.statusCode) {
         401 => const UnauthorizedException(),
@@ -27,15 +26,12 @@ class ErrorInterceptor extends Interceptor {
         ),
       },
 
-      DioExceptionType.connectionError =>
-      const NetworkException(),
+      DioExceptionType.connectionError => const NetworkException(),
 
       _ => const NetworkException(),
     };
 
     // Wrap ke DioException dengan error kita
-    handler.next(
-      err.copyWith(error: exception),
-    );
+    handler.next(err.copyWith(error: exception));
   }
 }

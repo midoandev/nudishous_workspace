@@ -8,9 +8,7 @@ class AppLoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       // Kita gunakan Scaffold agar bisa menutupi seluruh layar (Full Screen)
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

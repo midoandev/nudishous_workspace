@@ -1,11 +1,13 @@
 // lib/src/presentation/widgets/profile_authenticated_view.dart
 import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/profile_cubit.dart';
 
 class ProfileAuthenticatedView extends StatelessWidget {
   final UserEntity user;
+
   const ProfileAuthenticatedView({super.key, required this.user});
 
   @override
@@ -39,7 +41,11 @@ class ProfileAuthenticatedView extends StatelessWidget {
             // Nama
             Text(
               user.firstName ?? 'Pengguna',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -48,8 +54,15 @@ class ProfileAuthenticatedView extends StatelessWidget {
             // Email
             Text(
               user.email ?? 'N/A',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .onSurfaceVariant,
               ),
             ),
           ],

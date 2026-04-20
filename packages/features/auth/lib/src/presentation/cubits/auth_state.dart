@@ -21,7 +21,9 @@ class AuthLoading extends AuthUpdated {
 
 class AuthError extends AuthUpdated {
   final String message;
+
   const AuthError(this.message);
+
   @override
   List<Object?> get props => [message];
 }
@@ -29,13 +31,14 @@ class AuthError extends AuthUpdated {
 class AuthAuthenticated extends AuthUpdated {
   // final AuthEntity user;
   const AuthAuthenticated();
+
   @override
   List<Object?> get props => [];
 }
 
 class AuthUnauthenticated extends AuthUpdated {
   const AuthUnauthenticated();
+
   @override
   List<Object?> get props => [];
 }
-

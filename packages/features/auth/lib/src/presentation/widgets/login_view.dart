@@ -1,5 +1,5 @@
-import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth.dart';
 
@@ -58,9 +58,9 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: state is AuthLoading
                       ? null
                       : () => context.read<AuthCubit>().login(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  ),
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        ),
                   child: state is AuthLoading
                       ? const CircularProgressIndicator()
                       : const Text('Masuk'),

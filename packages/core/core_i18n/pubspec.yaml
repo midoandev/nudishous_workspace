@@ -13,9 +13,14 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   i69n: ^3.5.0
-  core_logic: any
+  flutter_bloc: any
+
+
+#  get_it: any
+  injectable: any
+
   local_storage: any
 
 dev_dependencies:
-  injectable_generator: ^2.12.1
+  injectable_generator: any
   build_runner: any

@@ -1,6 +1,6 @@
-import 'package:core_logic/core_logic.dart';
+import 'package:equatable/equatable.dart';
 
-class UserEntity extends Equatable{
+class UserEntity extends Equatable {
   int? id;
   String? username;
   String? email;

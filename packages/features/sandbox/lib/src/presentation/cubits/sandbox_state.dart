@@ -1,4 +1,5 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:equatable/equatable.dart';
 
 class FoodItem extends Equatable {
   final String id;
@@ -17,10 +18,14 @@ class FoodItem extends Equatable {
 
   // Rumus: (grams / 100) * nilai_dasar
   double get calculatedCalories => (grams / 100) * calories;
+
   double get calculatedProtein => (grams / 100) * protein;
 
   FoodItem copyWith({double? grams}) => FoodItem(
-    id: id, name: name, calories: calories, protein: protein,
+    id: id,
+    name: name,
+    calories: calories,
+    protein: protein,
     grams: grams ?? this.grams,
   );
 
@@ -33,8 +38,11 @@ class SandboxUpdated extends BaseState {
 
   const SandboxUpdated(this.piring);
 
-  double get totalCalories => piring.fold(0, (sum, item) => sum + item.calculatedCalories);
-  double get totalProtein => piring.fold(0, (sum, item) => sum + item.calculatedProtein);
+  double get totalCalories =>
+      piring.fold(0, (sum, item) => sum + item.calculatedCalories);
+
+  double get totalProtein =>
+      piring.fold(0, (sum, item) => sum + item.calculatedProtein);
 
   @override
   List<Object?> get props => [piring];

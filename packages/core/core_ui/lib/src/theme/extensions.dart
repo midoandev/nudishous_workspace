@@ -13,5 +13,6 @@ extension ThemeExtention on BuildContext {
 
 extension ResponsiveExtension on BuildContext {
   double get screenWidth => MediaQuery.of(this).size.width;
+
   bool get isMobile => screenWidth < 600;
 }

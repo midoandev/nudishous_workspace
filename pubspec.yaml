@@ -27,12 +27,48 @@ workspace:
 
 dev_dependencies:
   melos: ^7.5.1
+  flutter_lints: ^6.0.0
+
+dependency_overrides:
+  # Build tools
+  build_runner: ^2.4.0
+  injectable_generator: ^2.4.4
+  auto_route_generator:
+
+  # State
+  bloc: ^9.2.0
+  flutter_bloc: ^9.1.1
+
+  # DI
+  get_it: ^9.2.1
+  injectable: ^2.7.1+4
+
+  # Utils
+  equatable: ^2.0.5
+  dartz: ^0.10.1
+
+  # Network
+  dio: ^5.4.3
+
+  # Routing
+  auto_route: ^9.2.0
+
+  #storage
+  shared_preferences: ^2.5.5
 
 melos:
   scripts:
     analyze:
       exec: flutter analyze .
       description: Menjalankan flutter analyze di semua package.
+
+    outdated:
+      run: melos exec -- "flutter pub outdated"
+      description: Cek dependency yang outdated di semua package
+
+    upgrade:
+      run: melos exec -c 1 -- "flutter pub upgrade"
+      description: Upgrade dependency di semua package
 
     test:
       exec: flutter test

@@ -1,5 +1,6 @@
-import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:local_storage/local_storage.dart';
 
 @lazySingleton
@@ -15,8 +16,11 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
     if (savedMode.isEmpty) {
       // Deteksi awal: Jika HP sedang Dark, set ke Dark. Jika tidak, Light.
-      final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-      final initialMode = brightness == Brightness.dark ? ThemeMode.dark : ThemeMode.light;
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      final initialMode = brightness == Brightness.dark
+          ? ThemeMode.dark
+          : ThemeMode.light;
       setThemeMode(initialMode);
     } else {
       emit(savedMode == 'dark' ? ThemeMode.dark : ThemeMode.light);
@@ -28,5 +32,4 @@ class ThemeCubit extends Cubit<ThemeMode> {
     await _pref.setThemeMode(mode.name);
     emit(mode);
   }
-
 }

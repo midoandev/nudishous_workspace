@@ -1,4 +1,5 @@
-import 'package:core_logic/core_logic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:local_storage/local_storage.dart';
 
 import '../../../auth.dart';
@@ -9,29 +10,25 @@ class AuthCubit extends Cubit<AuthUpdated> {
   final LoginUseCase _loginUseCase;
   final PreferenceService _preferenceService;
 
-  AuthCubit(
-      this._loginUseCase,
-      this._preferenceService,
-      ) : super(const AuthLoginInitial());
+  AuthCubit(this._loginUseCase, this._preferenceService)
+    : super(const AuthLoginInitial());
 
   String get title => state == AuthLoginInitial() ? 'Masuk' : 'Daftar';
 
   void changePage() {
-    emit(state == AuthRegisterInitial() ? const AuthLoginInitial() : const AuthRegisterInitial());
+    emit(
+      state == AuthRegisterInitial()
+          ? const AuthLoginInitial()
+          : const AuthRegisterInitial(),
+    );
   }
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String email, required String password}) async {
     emit(const AuthLoading());
-    final result = await _loginUseCase.call(
-      email: email,
-      password: password,
-    );
+    final result = await _loginUseCase.call(email: email, password: password);
     result.fold(
-          (failure) => emit(AuthError(failure.message)),
-          (_) => emit(const AuthAuthenticated()), // token sudah disimpan di repo
+      (failure) => emit(AuthError(failure.message)),
+      (_) => emit(const AuthAuthenticated()), // token sudah disimpan di repo
     );
   }
 

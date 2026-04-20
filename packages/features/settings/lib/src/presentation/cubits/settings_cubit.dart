@@ -1,4 +1,6 @@
-import 'package:core_logic/core_logic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+
 import 'settings_state.dart';
 
 @injectable

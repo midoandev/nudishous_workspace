@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:core_logic/core_logic.dart';
 
 import 'auth_router.gr.dart';

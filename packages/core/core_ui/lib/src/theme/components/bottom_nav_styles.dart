@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'app_text_style.dart';
 
 class BottomNavStyles {

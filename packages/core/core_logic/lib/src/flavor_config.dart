@@ -11,6 +11,7 @@ class FlavorConfig {
 
   static const _baseUrl = 'id.midosaurus.nudishous';
   static const _appName = 'Nudishous';
+
   // static const _offUser = 'midosaurus_dev';
   // static const _offPassword = 'rahasia_midosaurus';
 

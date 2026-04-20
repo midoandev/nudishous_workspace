@@ -1,4 +1,4 @@
-import 'package:core_logic/core_logic.dart';
+import 'package:injectable/injectable.dart';
 import 'package:remote_api/remote_api.dart';
 
 import '../models/profile_model.dart';
@@ -13,5 +13,4 @@ class ProfileRemoteDatasource {
     final response = await _dio.get('/auth/me');
     return ProfileModel.fromJson(response.data as Map<String, dynamic>);
   }
-
 }

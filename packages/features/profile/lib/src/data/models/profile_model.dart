@@ -25,7 +25,8 @@ class ProfileModel {
     this.refreshToken,
   });
 
-  factory ProfileModel.fromRawJson(String str) => ProfileModel.fromJson(json.decode(str));
+  factory ProfileModel.fromRawJson(String str) =>
+      ProfileModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 

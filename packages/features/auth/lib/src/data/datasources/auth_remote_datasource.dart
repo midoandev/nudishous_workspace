@@ -1,5 +1,5 @@
 import 'package:auth/src/data/models/user_model.dart';
-import 'package:core_logic/core_logic.dart';
+import 'package:injectable/injectable.dart';
 import 'package:remote_api/remote_api.dart';
 
 @LazySingleton()

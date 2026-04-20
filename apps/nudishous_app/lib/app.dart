@@ -2,8 +2,10 @@ import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/router/app_router.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -38,6 +40,5 @@ class _AppView extends StatelessWidget {
       supportedLocales: I18n.supportedLocales,
       localizationsDelegates: I18n.localizationsDelegates,
     );
-
   }
 }

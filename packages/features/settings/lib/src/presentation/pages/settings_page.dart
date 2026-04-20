@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:core_logic/core_logic.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_ui/core_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../settings.dart';
 
@@ -25,7 +26,8 @@ class SettingsPage extends StatelessWidget implements AutoRouteWrapper {
         children: [
           ListTile(
             leading: const Icon(Icons.palette_outlined),
-            title: Text(context.s.settings.theme), // misal: "App Theme"
+            title: Text(context.s.settings.theme),
+            // misal: "App Theme"
             subtitle: Text(
               context.watch<ThemeCubit>().state == ThemeMode.dark
                   ? context.s.settings.theme_dark

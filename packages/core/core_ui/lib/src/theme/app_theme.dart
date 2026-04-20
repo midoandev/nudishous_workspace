@@ -4,15 +4,15 @@ import 'package:core_ui/src/theme/components/card_style.dart';
 import 'package:core_ui/src/theme/components/elevated_button_style.dart';
 import 'package:flutter/material.dart';
 
-import 'components/bottom_nav_styles.dart';
 import 'components/button_theme.dart';
 import 'components/input_theme.dart';
 
 abstract final class AppTheme {
-
   static ThemeData _buildTheme(Brightness brightness) {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: brightness == Brightness.light ? AppColors.primary : AppColors.primaryDark,
+      seedColor: brightness == Brightness.light
+          ? AppColors.primary
+          : AppColors.primaryDark,
       brightness: brightness,
     );
 
@@ -33,6 +33,6 @@ abstract final class AppTheme {
   }
 
   static ThemeData get light => _buildTheme(Brightness.light);
+
   static ThemeData get dark => _buildTheme(Brightness.dark);
 }
-

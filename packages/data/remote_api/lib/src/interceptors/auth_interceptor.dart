@@ -8,9 +8,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final token = await _secureStorageService.getToken();
 
     if (token != null) {
@@ -19,5 +19,4 @@ class AuthInterceptor extends Interceptor {
 
     handler.next(options);
   }
-
 }

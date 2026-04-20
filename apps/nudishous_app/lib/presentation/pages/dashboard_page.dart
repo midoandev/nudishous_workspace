@@ -1,6 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
-import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/profile.dart';
 import 'package:sandbox/sandbox.dart';
@@ -20,7 +20,7 @@ class DashboardPage extends StatelessWidget {
             if (!isMain)
               IconButton(
                 onPressed: () async {
-                  await context.navigateToPath(NavConstants.settings);
+                  await context.navigateNamedTo(NavConstants.settings);
                 },
                 icon: Icon(Icons.settings),
               ),

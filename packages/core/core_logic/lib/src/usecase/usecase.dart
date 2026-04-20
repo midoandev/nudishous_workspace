@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+
 import '../../core_logic.dart';
 
 // UseCase dengan parameter
@@ -13,6 +16,7 @@ abstract class UseCaseNoParams<Type> {
 // Params kosong jika tidak ada parameter
 class NoParams extends Equatable {
   const NoParams();
+
   @override
   List<Object?> get props => [];
 }

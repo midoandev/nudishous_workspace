@@ -1,4 +1,5 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:injectable/injectable.dart';
 
 import 'locale_configurator.config.dart';
 

@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/profile_cubit.dart';
 import '../cubits/profile_state.dart';
@@ -25,11 +27,12 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
       body: BlocBuilder<ProfileCubit, ProfileUpdated>(
         builder: (context, state) {
           return switch (state) {
-            ProfileGuest()   => const ProfileGuestView(),  // ← tidak perlu AuthCubit!
+            ProfileGuest() =>
+              const ProfileGuestView(), // ← tidak perlu AuthCubit!
             ProfileLoading() => const AppLoadingScreen(),
-            ProfileLoaded()  => ProfileAuthenticatedView(user: state.user),
+            ProfileLoaded() => ProfileAuthenticatedView(user: state.user),
             // ProfileError()   => ProfileErrorView(message: state.message),
-            _                => const SizedBox.shrink(),
+            _ => const SizedBox.shrink(),
           };
         },
       ),

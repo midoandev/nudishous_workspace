@@ -24,12 +24,12 @@ This project follows a **Modular Clean Architecture** approach, enforcing strict
 
 ### Workspace Structure
 
-| Layer | Path | Primary Responsibility |
-| :--- | :--- | :--- |
-| **Apps** | `apps/` | Main application entry points and platform-specific flavor configurations. |
-| **Features** | `packages/features/` | Self-contained business features (e.g., `sandbox`, `profile`, `auth`, `setting`). |
-| **Core** | `packages/core/` | Global logic, i69n (`core_i18n`), Design System (`core_ui`) and shared utilities. |
-| **Data** | `packages/data/` | Shared data sources (API Clients, Firebase, Local Storage). |
+| Layer        | Path                 | Primary Responsibility                                                     |
+|:-------------|:---------------------|:---------------------------------------------------------------------------|
+| **Apps**     | `apps/`              | Main application entry points and platform-specific flavor configurations. |
+| **Features** | `packages/features/` | Self-contained business features (e.g., `sandbox`, `profile`, `auth`, `setting`).                |
+| **Core**     | `packages/core/`     | Global logic, i69n (`core_i18n`), Design System (`core_ui`) and shared utilities.             |
+| **Data**     | `packages/data/`     | Shared data sources (API Clients, Firebase, Local Storage).                |
 
 -----
 

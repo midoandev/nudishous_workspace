@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:core_logic/core_logic.dart';
+
 import 'settings_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')

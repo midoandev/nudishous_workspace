@@ -1,6 +1,8 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class ProfileRepository {
   Future<Either<Failure, UserEntity>> getProfile();
+
   Future<Either<Failure, UserEntity>> updateProfile(UserEntity user);
 }

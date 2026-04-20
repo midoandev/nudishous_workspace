@@ -11,16 +11,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: ^2.5.5
+  shared_preferences: any
   flutter_secure_storage: ^10.0.0
+
+  injectable: any
 
   core_logic: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
-  injectable_generator: ^2.12.1
+  flutter_lints: any
+  injectable_generator: any
   build_runner: any
 
 flutter:

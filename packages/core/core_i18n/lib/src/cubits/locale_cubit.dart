@@ -1,6 +1,7 @@
-import 'package:core_logic/core_logic.dart'; // Import injectable & dartz/equatable
 import 'package:core_i18n/core_i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:local_storage/local_storage.dart';
 
 @lazySingleton
@@ -15,9 +16,12 @@ class LocaleCubit extends Cubit<Locale> {
     final savedLang = _pref.getLanguage();
 
     if (savedLang.isEmpty) {
-      final systemLang = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final systemLang =
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
       // Cek dukungan, jika tidak ada pakai default (en)
-      final supported = I18n.supportedLocales.any((l) => l.languageCode == systemLang);
+      final supported = I18n.supportedLocales.any(
+        (l) => l.languageCode == systemLang,
+      );
       final initialLocale = supported ? Locale(systemLang) : I18n.defaultLocale;
       setLocale(initialLocale);
     } else {

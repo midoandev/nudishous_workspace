@@ -6,21 +6,49 @@ homepage:
 
 environment:
   sdk: ^3.11.0
-  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
+  get_it: any
+  injectable: any
+  flutter_bloc: any
+  auto_route: any
+
   google_fonts: ^8.0.2
+  flutter_svg: ^2.2.4
+  flutter_gen: ^5.13.0+1
+
   core_logic: any
   local_storage: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
-  injectable_generator: ^2.12.1
+  flutter_lints: any
+  injectable_generator: any
   build_runner: any
+  flutter_gen_runner: ^5.13.0+1
+
+flutter_gen:
+  output: lib/src/generate
+  line_length: 80
+  integrations:
+    flutter_svg: true
+    rive: false
+    lottie: false
+
+  assets:
+    enabled: true
+    outputs:
+      package_parameter_enabled: true # <- Add this line.
+      class_name: AppAssets
+      style: dot-delimiter
 
 flutter:
+  generate: true
   uses-material-design: true
+  assets:
+    - assets/vectors/
+    - assets/images/
