@@ -29,7 +29,7 @@ jobs:
 
       - name: ⚙️ Run build_runner
         run: |
-          cd apps/nudishous_app && dart run build_runner build --delete-conflicting-outputs
+          melos generate
 
 #      - name: 📋 Check Code Quality (Linting)
 #        run: cd apps/nudishous_app && flutter analyze
