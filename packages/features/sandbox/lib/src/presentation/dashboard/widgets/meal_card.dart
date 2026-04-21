@@ -57,8 +57,6 @@ class MealCard extends StatelessWidget {
   }
 
   Widget _buildMacroInfo(BuildContext context, MealEntry item) {
-    final style = Theme.of(context).textTheme.bodySmall;
-    final color = Theme.of(context).colorScheme.primary;
 
     return Row(
       children: [

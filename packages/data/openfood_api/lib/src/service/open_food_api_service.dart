@@ -1,6 +1,7 @@
 import 'package:core_logic/core_logic.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:injectable/injectable.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+
 import '../models/food_item.dart';
 
 @lazySingleton

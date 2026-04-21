@@ -3,7 +3,6 @@ import 'package:core_i18n/core_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/sandbox.dart';
-import 'package:sandbox/src/presentation/add_meal/pages/add_meal_page.dart';
 
 import '../widgets/empty_state_widget.dart';
 import '../widgets/energy_total_card.dart';

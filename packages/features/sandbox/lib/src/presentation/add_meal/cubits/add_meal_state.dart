@@ -1,5 +1,4 @@
 import 'package:core_logic/core_logic.dart';
-import 'package:openfood_api/openfood_api.dart';
 import 'package:sandbox/src/domain/entities/meal_entry.dart';
 
 import '../../../domain/entities/plate_item.dart';
