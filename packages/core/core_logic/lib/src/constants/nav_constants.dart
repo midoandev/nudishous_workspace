@@ -1,4 +1,6 @@
 class NavConstants {
+  static const String splash = '/';
+  static const String main = '/main';
   static const String auth = '/auth';
   static const String sandbox = 'sandbox';
   static const String profile = 'profile';

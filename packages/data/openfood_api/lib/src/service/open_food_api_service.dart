@@ -1,7 +1,7 @@
 import 'package:core_logic/core_logic.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:injectable/injectable.dart';
-import '../models/food_response.dart';
+import '../models/food_item.dart';
 
 @lazySingleton
 class OpenFoodApiService {
@@ -10,17 +10,20 @@ class OpenFoodApiService {
     final currentFlavor = FlavorConfig.instance;
 
     OpenFoodAPIConfiguration.userAgent = UserAgent(
-      name: currentFlavor.appTitle ?? '',
-      url: currentFlavor.apiBaseUrl,
+      name: 'Nudishous',
+      url: 'https://nudishous.com',
     );
 
     OpenFoodAPIConfiguration.globalUser = User(
       userId: currentFlavor.offUser ?? '',
       password: currentFlavor.offPassword ?? '',
     );
+    print(
+      'fasd ${currentFlavor.offUser} ${currentFlavor.offPassword} ${currentFlavor.apiBaseUrl} ${currentFlavor.appTitle}',
+    );
   }
 
-  Future<List<OpenFoodItem>> search(String query) async {
+  Future<List<FoodItem>> search(String query) async {
     final configuration = ProductSearchQueryConfiguration(
       parametersList: <Parameter>[
         SearchTerms(terms: [query]),
@@ -34,14 +37,13 @@ class OpenFoodApiService {
       ],
       version: ProductQueryVersion.v3,
     );
-
+    print('dsklfmk $query');
     final result = await OpenFoodAPIClient.searchProducts(null, configuration);
-
     if (result.products == null) return [];
 
     return result.products!.map((product) {
       final nut = product.nutriments;
-      return OpenFoodItem(
+      return FoodItem(
         barcode: product.barcode ?? '',
         name: product.productName ?? 'Unknown',
         imageUrl: product.imageFrontUrl,

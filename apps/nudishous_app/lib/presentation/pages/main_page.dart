@@ -8,8 +8,8 @@ import 'package:sandbox/sandbox.dart';
 import '../widgets/floating_nav_dock.dart';
 
 @RoutePage()
-class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class DashboardPage extends StatelessWidget {
         );
       },
       routes: [
-        SandboxRoute(),
+        DashboardRoute(),
         // DiscoveryRoute(),
         ProfileRoute(),
       ],

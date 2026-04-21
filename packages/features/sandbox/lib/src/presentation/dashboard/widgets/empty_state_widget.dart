@@ -1,7 +1,9 @@
+import 'package:core_i18n/core_i18n.dart';
 import 'package:flutter/material.dart';
 
 class EmptyStateWidget extends StatelessWidget {
-  const EmptyStateWidget({super.key});
+  final Function() onPressInput;
+  const EmptyStateWidget({super.key,required this.onPressInput});
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +17,19 @@ class EmptyStateWidget extends StatelessWidget {
           Icon(Icons.no_food_outlined, size: 80, color: colorScheme.outlineVariant),
           const SizedBox(height: 16),
           Text(
-            "Belum ada data",
+            context.s.sandbox.emptyState.title,
             style: textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
           ),
           const SizedBox(height: 8),
           Text(
-            "Mulai catat progresmu hari ini",
+            context.s.sandbox.emptyState.subtitle,
             style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
           FilledButton.icon(
-            onPressed: () {},
+            onPressed: onPressInput,
             icon: const Icon(Icons.add),
-            label: const Text("Input Data"),
+            label: Text(context.s.sandbox.emptyState.button),
             style: FilledButton.styleFrom(
               backgroundColor: colorScheme.primary,
               foregroundColor: colorScheme.onPrimary,

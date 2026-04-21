@@ -5,10 +5,10 @@ enum MealType { breakfast, lunch, dinner, snack }
 class MealEntry extends Equatable {
   final String id;
   final String name;
-  final int calories;
-  final int protein; // dalam gram
-  final int carbs;
-  final int fat;
+  final num calories;
+  final num protein; // dalam gram
+  final num carbs;
+  final num fat;
   final String imageUrl;
   final MealType type;
   final double grams;
@@ -21,7 +21,7 @@ class MealEntry extends Equatable {
     required this.carbs,
     required this.fat,
     required this.imageUrl,
-    required this.type,
+    this.type = MealType.snack,
     this.grams = 100.0,
   });
 

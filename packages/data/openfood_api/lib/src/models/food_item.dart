@@ -1,4 +1,4 @@
-class OpenFoodItem {
+class FoodItem {
   final String barcode;
   final String name;
   final String? imageUrl;
@@ -7,7 +7,7 @@ class OpenFoodItem {
   final double protein;
   final double fat;
 
-  OpenFoodItem({
+  FoodItem({
     required this.barcode,
     required this.name,
     this.imageUrl,

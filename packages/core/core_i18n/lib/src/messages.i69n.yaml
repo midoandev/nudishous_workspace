@@ -16,10 +16,31 @@ settings:
   theme_dark: "Dark Mode"
 
 sandbox:
-  language_name: "English"
-  title: "Nutrition Sandbox"
-  empty_plate: "Your plate is empty. Add some food!"
-  calories_count(int count): "Calories: _count kcal"
+  title: "Sandbox"
+  greeting: "Let's track your progress ✌️"
+  energyTotal: "Energy Total"
+  kcalGained: "Kcal Gained"
+  breakfast: "Breakfast"
+  lunch: "Lunch"
+  dinner: "Dinner"
+  snack: "Snack"
+  emptyState:
+    title: "No data today"
+    subtitle: "Start tracking your progress now!"
+    button: "Input First Data"
+  macros:
+    protein: "P"
+    carbs: "C"
+    fat: "F"
+  addMeal:
+    title: "Add Meal"
+    searchPlaceholder: "Search food (e.g. Rice, Chicken...)"
+    yourPlate: "Your Plate"
+    emptyPlate: "Your plate is empty"
+    weightLabel: "Weight (grams)"
+    totalSummary: "Total Nutrition"
+    saveButton: "Save Meal"
+    selectType: "Select Meal Time"
 
 profile:
   title: "Profile"

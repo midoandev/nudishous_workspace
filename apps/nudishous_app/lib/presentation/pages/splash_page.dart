@@ -22,10 +22,10 @@ class _SplashPageState extends State<SplashPage> {
     // 1. Jalankan inisialisasi (cek auth, load pref, dll)
     // Kita panggil AuthCubit untuk cek status login/guest
     // await context.read<AuthCubit>().initApp();
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 1));
     // 2. Jika sudah selesai, pindah ke Dashboard
     if (mounted) {
-      context.router.replace(const DashboardRoute());
+      context.router.replace(const MainRoute());
     }
   }
 

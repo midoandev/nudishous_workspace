@@ -15,11 +15,31 @@ settings:
   theme_dark: "Mode Gelap"
 
 sandbox:
-  language_name: "Indonesia"
-  title: "Sandbox Nutrisi"
-  empty_plate: "Piringmu kosong. Tambahkan makanan!"
-  calories_count(int count): "Kalori: _count kkal"
-  protein_count(double amount): "Protein: _amount g"
+  title: "Sandbox"
+  greeting: "Ayo pantau progresmu ✌️"
+  energyTotal: "Total Energi"
+  kcalGained: "Kcal Masuk"
+  breakfast: "Sarapan"
+  lunch: "Makan Siang"
+  dinner: "Makan Malam"
+  snack: "Cemilan"
+  emptyState:
+    title: "Belum ada data hari ini"
+    subtitle: "Mulai catat progresmu sekarang!"
+    button: "Input Data Pertama"
+  macros:
+    protein: "P"
+    carbs: "C"
+    fat: "F"
+  addMeal:
+    title: "Tambahkan Makanan"
+    searchPlaceholder: "Cari makanan (mis. Nasi, Ayam...)"
+    yourPlate: "Piring Anda"
+    emptyPlate: "Piring Anda kosong"
+    weightLabel: "Berat (gram)"
+    totalSummary: "Ringkasan Nutrisi"
+    saveButton: "Simpan Makanan"
+    selectType: "Pilih Waktu Makan"
 
 profile:
   title: "Profile"
