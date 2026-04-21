@@ -44,7 +44,7 @@ jobs:
       - name: 🚀 Build APK Dev
         run: |
           cd apps/nudishous_app && flutter build apk --debug --flavor dev \
-          -t lib/config/main_dev.dart \
+          -t lib/main.dart \
           --dart-define-from-file=../../config.json
 
       - name: 📤 Upload Artifact
