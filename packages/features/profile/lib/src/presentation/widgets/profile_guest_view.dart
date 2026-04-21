@@ -20,7 +20,7 @@ class ProfileGuestView extends StatelessWidget {
             FilledButton(
               onPressed: () async {
                 // Push ke AuthPage lalu tunggu hasilnya
-                await context.navigateNamedTo(NavConstants.auth);
+                await context.navigateToPath(NavConstants.auth);
 
                 // Setelah kembali → reload profile
                 // Tidak perlu tahu apakah login sukses atau tidak

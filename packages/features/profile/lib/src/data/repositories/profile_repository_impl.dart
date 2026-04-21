@@ -26,8 +26,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> updateProfile(UserEntity user) {
-    // TODO: implement updateProfile
+  Future<Either<Failure, UserEntity>> updateProfile(UserEntity user) async {
+    _preferenceService.getCurrentUser();
     throw UnimplementedError();
   }
 }

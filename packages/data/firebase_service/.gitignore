@@ -34,3 +34,6 @@ migrate_working_dir/
 *.obj
 *.gr.dart
 *.config.dart
+
+firebase_options_prod.dart
+firebase_options_dev.dart

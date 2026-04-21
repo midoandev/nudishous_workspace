@@ -1,5 +1,8 @@
 plugins {
     id("com.android.application")
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services")
+    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -20,17 +23,17 @@ android {
     }
 
 
-    flavorDimensions += "flavor-type"
+    flavorDimensions += "environment"
 
     productFlavors {
         create("dev") {
-            dimension = "flavor-type"
+            dimension = "environment"
             applicationIdSuffix = ".dev"
             manifestPlaceholders["appName"] = "Nudishous Dev"
         }
 
         create("prod") {
-            dimension = "flavor-type"
+            dimension = "environment"
             manifestPlaceholders["appName"] = "Nudishous"
         }
     }

@@ -2,6 +2,7 @@ import 'package:auth/auth.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
+import 'package:firebase_service/firebase_service.dart';
 import 'package:local_storage/local_storage.dart';
 import 'package:nudishous/core/router/app_router.dart';
 import 'package:profile/profile.dart';
@@ -19,7 +20,7 @@ Future<void> configureDependencies() async {
   await configureLocaleInjection();
   await configureLocalStorageInjection();
   await configureNetworkInjection();
-  // await configureFirebaseInjection();
+  await configureFirebaseInjection();
   await configureAuthInjection();
   await configureProfileInjection();
   // await configureSandboxInjection();

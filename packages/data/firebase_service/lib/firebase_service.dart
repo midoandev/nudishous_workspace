@@ -1,5 +1,4 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/config/firebase_initializer.dart';
+export 'src/di/firebase_configurator.dart';
+export 'src/services/google_auth_service.dart';
+export 'src/services/analytics_service.dart';

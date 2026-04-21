@@ -20,7 +20,7 @@ class DashboardPage extends StatelessWidget {
             if (!isMain)
               IconButton(
                 onPressed: () async {
-                  await context.navigateNamedTo(NavConstants.settings);
+                  await context.navigateToPath(NavConstants.settings);
                 },
                 icon: Icon(Icons.settings),
               ),
