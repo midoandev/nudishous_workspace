@@ -20,3 +20,6 @@ sandbox:
   empty_plate: "Piringmu kosong. Tambahkan makanan!"
   calories_count(int count): "Kalori: _count kkal"
   protein_count(double amount): "Protein: _amount g"
+
+profile:
+  title: "Profile"

@@ -1,0 +1,83 @@
+name: Android Production Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-production:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.7'
+          cache: true
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Create .env file (production)
+        run: |
+          echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
+          echo "KEY_CURRENCY=${{ secrets.KEY_CURRENCY }}" >> .env
+
+      - name: Decode release keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/src/production/badjetin-keystore.jks
+
+      - name: Create key.properties
+        run: |
+          cat <<EOF > android/key.properties
+          storeFile=src/production/badjetin-keystore.jks
+          storePassword=${{ secrets.ANDROID_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          EOF
+
+      - name: Analyze project
+        run: flutter analyze
+
+      - name: Flutter Clean
+        run: flutter clean
+
+      - name: Build AAB (Production)
+        run: |
+          flutter build appbundle \
+            --release \
+            --flavor production \
+            -t lib/main.dart \
+            --obfuscate \
+            --split-debug-info=./badjetin_android_prod \
+            --no-tree-shake-icons
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+          working-directory: android
+
+      - name: Upload to Play Store (Internal)
+        working-directory: android
+        shell: bash
+        run: |
+          # Decode Base64 Secret menjadi string JSON mentah
+          export PLAYSTORE_JSON_RAW=$(echo "${{ secrets.PLAYSTORE_SERVICE_ACCOUNT_JSON }}" | base64 --decode)
+          
+          # Jalankan Fastlane dengan lane android internal
+          bundle exec fastlane android internal
+        env:
+          # Kita lempar hasil decode tadi ke Environment Variable
+          PLAYSTORE_JSON_DATA: ${{ env.PLAYSTORE_JSON_RAW }}

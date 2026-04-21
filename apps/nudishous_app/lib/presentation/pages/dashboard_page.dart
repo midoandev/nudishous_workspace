@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:profile/profile.dart';
 import 'package:sandbox/sandbox.dart';
 
+import '../widgets/floating_nav_dock.dart';
+
 @RoutePage()
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -14,16 +16,16 @@ class DashboardPage extends StatelessWidget {
     return AutoTabsScaffold(
       appBarBuilder: (context, tabsRouter) {
         final isMain = tabsRouter.activeIndex == 0;
+        if (isMain) return null;
         return AppBar(
-          title: Text(isMain ? context.s.sandbox.title : 'Profile'),
+          title: Text(context.s.profile.title),
           actions: [
-            if (!isMain)
-              IconButton(
-                onPressed: () async {
-                  await context.navigateToPath(NavConstants.settings);
-                },
-                icon: Icon(Icons.settings),
-              ),
+            IconButton(
+              onPressed: () async {
+                await context.navigateToPath(NavConstants.settings);
+              },
+              icon: Icon(Icons.settings),
+            ),
           ],
         );
       },
@@ -32,21 +34,10 @@ class DashboardPage extends StatelessWidget {
         // DiscoveryRoute(),
         ProfileRoute(),
       ],
-      bottomNavigationBuilder: (_, tabsRouter) {
-        return BottomNavigationBar(
-          currentIndex: tabsRouter.activeIndex,
-          onTap: tabsRouter.setActiveIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          elevation: 2,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.bakery_dining),
-              label: context.s.sandbox.title,
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-        );
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonBuilder: (context, tabsRouter) {
+        return FloatingNavDock(tabsRouter: tabsRouter);
       },
     );
   }

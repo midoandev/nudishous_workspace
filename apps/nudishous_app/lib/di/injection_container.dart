@@ -4,6 +4,7 @@ import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:firebase_service/firebase_service.dart';
 import 'package:local_storage/local_storage.dart';
+import 'package:openfood_api/openfood_api.dart';
 import 'package:nudishous/core/router/app_router.dart';
 import 'package:profile/profile.dart';
 import 'package:remote_api/remote_api.dart';
@@ -22,6 +23,7 @@ Future<void> configureDependencies() async {
   await configureNetworkInjection();
   await configureFirebaseInjection();
   await configureAuthInjection();
+  await configureOpenfoodInjection();
   await configureProfileInjection();
   // await configureSandboxInjection();
 

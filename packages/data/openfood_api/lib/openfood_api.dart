@@ -1,1 +1,1 @@
-export 'package:openfood_api/openfood_api.dart';
+export 'src/di/openfood_configurator.dart';

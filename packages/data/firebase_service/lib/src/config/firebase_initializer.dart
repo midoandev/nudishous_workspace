@@ -13,11 +13,6 @@ class FirebaseInitializer {
         ? dev.DefaultFirebaseOptions.currentPlatform
         : prod.DefaultFirebaseOptions.currentPlatform;
 
-    print('🚀 [FIREBASE VERIFICATION]');
-    print('🔥 Project ID: ${options.projectId}');
-    print('🔥 App ID: ${options.appId}'); // Pastikan ID .dev atau prod sesuai
-    print('🔥 Storage Bucket: ${options.storageBucket}');
-    print('---------------------------');
     await Firebase.initializeApp(options: options);
   }
 }

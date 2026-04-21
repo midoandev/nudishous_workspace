@@ -1,11 +1,10 @@
 // packages/data/remote_api/lib/src/config/dio_config.dart
 
+import 'package:core_logic/core_logic.dart';
+
 class DioConfig {
   // Diambil dari --dart-define saat build (flavor)
-  static const baseUrl = String.fromEnvironment(
-    'BASE_URL',
-    defaultValue: 'https://dummyjson.com/', // fallback dev
-  );
+  static String baseUrl = FlavorConfig.instance.apiBaseUrl ?? '';
 
   static const connectTimeout = Duration(seconds: 30);
   static const receiveTimeout = Duration(seconds: 30);

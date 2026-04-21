@@ -24,3 +24,4 @@ melos_*.iml
 *.env
 ios/Flutter/Generated.xcconfig
 android/local.properties
+config.json

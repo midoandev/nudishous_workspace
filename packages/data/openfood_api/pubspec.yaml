@@ -13,6 +13,10 @@ dependencies:
   flutter:
     sdk: flutter
   openfoodfacts: ^3.30.2
+  injectable: any
+
+  core_logic: any
+
 
 dev_dependencies:
   flutter_test:

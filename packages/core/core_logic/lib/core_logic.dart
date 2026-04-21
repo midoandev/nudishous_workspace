@@ -1,7 +1,7 @@
 // core_logic.dart
 
 // 1. Logic & Config
-export 'package:core_logic/src/flavor_config.dart';
+export 'package:core_logic/src/config/flavor_config.dart';
 
 // Base classes
 export 'src/base/base_state.dart';
