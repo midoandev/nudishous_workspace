@@ -1,9 +1,7 @@
 import 'package:core_logic/core_logic.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_service/src/config/firebase_options/firebase_options_dev.dart'
-    as dev;
-import 'package:firebase_service/src/config/firebase_options/firebase_options_prod.dart'
-    as prod;
+import 'firebase_options/firebase_options_dev.dart' as dev;
+import 'firebase_options/firebase_options_prod.dart' as prod;
 
 class FirebaseInitializer {
   static Future<void> initialize() async {
