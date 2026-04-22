@@ -36,11 +36,39 @@ class PlateList extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        item.food.name,
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              item.food.imageUrl,
+                              width: 48,
+                              height: 48,
+                              fit: BoxFit.cover,
+                              errorBuilder: (_, __, ___) => Container(
+                                width: 48,
+                                height: 48,
+                                color: colorScheme.surfaceContainerHighest,
+                                child: Icon(
+                                  Icons.fastfood_outlined,
+                                  color: colorScheme.onSurface.withValues(
+                                    alpha: .5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Text(
+                              item.food.name,
+                              style: textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     IconButton(

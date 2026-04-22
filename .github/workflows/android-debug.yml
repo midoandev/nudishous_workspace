@@ -37,26 +37,29 @@ jobs:
 #      - name: 🧪 Run Tests
 #        run: cd apps/nudishous_app && flutter test
 
-      - name: 🔑 Restore Firebase Configuration (Monorepo Style)
+      - name: 🔑 Restore Firebase Configuration
+        # Kita petakan Secret ke Environment Variable agar aman dari parsing shell
+        env:
+          FB_DEV_CONTENT: ${{ secrets.FIREBASE_OPTIONS_DEV }}
+          FB_PROD_CONTENT: ${{ secrets.FIREBASE_OPTIONS_PROD }}
+          G_SERVICES_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          APP_CONFIG_JSON: ${{ secrets.APP_CONFIG_JSON }}
         run: |
-          # 1. Pastikan semua folder induk tercipta dengan bersih
+          # 1. Buat folder tujuan
           mkdir -p packages/data/firebase_service/lib/src/config/firebase_options/
+          mkdir -p apps/nudishous_app/android/app/src/dev/
           
-          # 3. Tulis file Firebase Options Dev & Prod ke dalam PACKAGE
-          echo "${{ secrets.FIREBASE_OPTIONS_DEV }}" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_dev.dart
-          echo "${{ secrets.FIREBASE_OPTIONS_PROD }}" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_prod.dart
+          # 2. Tulis file Dart menggunakan printf. 
+          # printf "%s" lebih aman daripada echo untuk karakter spesial.
+          printf "%s" "$FB_DEV_CONTENT" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_dev.dart
+          printf "%s" "$FB_PROD_CONTENT" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_prod.dart
           
-          # 4. Decode google-services.json ke dalam APP UTAMA
-          echo "${{ secrets.GOOGLE_SERVICES_JSON_DEV }}" | base64 --decode > apps/nudishous_app/android/app/src/dev/google-services.json
-
-      - name: 🔍 Verify Files
-        run: |
-          ls -l packages/data/firebase_service/lib/src/config/firebase_options/
-          ls -l apps/nudishous_app/android/app/src/dev/
-
-      - name: 🛠️ Create config.json from Secret
-        # File ini dibuat di ROOT repository agar path ../../config.json di Android Studio tetap valid
-        run: echo '${{ secrets.APP_CONFIG_JSON }}' > config.json
+          # 3. Restore config.json
+          printf "%s" "$APP_CONFIG_JSON" > config.json
+          
+          # 4. Decode google-services.json
+          # Gunakan quotes pada variabel agar tidak dianggap command
+          echo "$G_SERVICES_BASE64" | base64 --decode > apps/nudishous_app/android/app/src/dev/google-services.json
 
       - name: 🚀 Build APK Dev
         run: |
