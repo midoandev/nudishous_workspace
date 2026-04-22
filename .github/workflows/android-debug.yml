@@ -37,6 +37,15 @@ jobs:
 #      - name: 🧪 Run Tests
 #        run: cd apps/nudishous_app && flutter test
 
+      - name: 🔑 Restore Firebase Configuration (Monorepo Style)
+        run: |
+          # 3. Tulis file Firebase Options Dev & Prod ke dalam PACKAGE
+          echo "${{ secrets.FIREBASE_OPTIONS_DEV }}" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_dev.dart
+          echo "${{ secrets.FIREBASE_OPTIONS_PROD }}" > packages/data/firebase_service/lib/src/config/firebase_options/firebase_options_prod.dart
+          
+          # 4. Decode google-services.json ke dalam APP UTAMA
+          echo "${{ secrets.GOOGLE_SERVICES_JSON_DEV }}" | base64 --decode > apps/nudishous_app/android/app/src/dev/google-services.json
+
       - name: 🛠️ Create config.json from Secret
         # File ini dibuat di ROOT repository agar path ../../config.json di Android Studio tetap valid
         run: echo '${{ secrets.APP_CONFIG_JSON }}' > config.json
