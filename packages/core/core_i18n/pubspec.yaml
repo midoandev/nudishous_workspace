@@ -18,9 +18,11 @@ dependencies:
 
 #  get_it: any
   injectable: any
-
   local_storage: any
 
+  core_logic: any
 dev_dependencies:
   injectable_generator: any
   build_runner: any
+  core_lint:
+    path: ../../core/core_lint

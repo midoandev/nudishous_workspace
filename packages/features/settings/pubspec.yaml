@@ -15,6 +15,7 @@ dependencies:
   injectable: any
   flutter_bloc: any
   auto_route: any
+  feather_icons: any
 
   core_i18n: any
   core_logic: any
@@ -28,6 +29,8 @@ dev_dependencies:
   injectable_generator: any
   auto_route_generator: any
   build_runner: any
+  core_lint:
+    path: ../../core/core_lint
 
 flutter:
   uses-material-design: true

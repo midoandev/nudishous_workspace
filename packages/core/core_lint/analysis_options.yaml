@@ -1,0 +1,44 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    missing_return: error
+    dead_code: warning
+    unused_import: warning
+    unused_local_variable: warning
+  exclude:
+    # Ignore generated files
+    - "**/*.g.dart"
+    - "**/*.gr.dart"
+    - "**/*.config.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+    - "**/*.i69n.dart"
+
+linter:
+  rules:
+    # Print & Debug
+    - avoid_print
+
+    # Const & Final
+    - prefer_const_constructors
+    - prefer_const_declarations
+    - prefer_final_locals
+    - prefer_final_fields
+
+    # Return types
+    - always_declare_return_types
+
+    # Formatting
+    - require_trailing_commas
+
+    # Good practices
+    - avoid_unnecessary_containers
+    - avoid_empty_else
+    - avoid_relative_lib_imports
+    - cancel_subscriptions
+    - close_sinks
+    - unawaited_futures
+    - use_super_parameters        # Dart 3 — super.key
+    - unnecessary_constructor_name
+    - unnecessary_late

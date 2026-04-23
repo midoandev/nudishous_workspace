@@ -15,7 +15,11 @@ dependencies:
 
   get_it: any
   injectable: any
+
   flutter_bloc: any
+  flutter_hooks: any
+  feather_icons: any
+
   auto_route: any
   equatable: any
   dartz: any
@@ -30,6 +34,8 @@ dependencies:
   remote_api: any
 
 dev_dependencies:
+  core_lint:
+    path: ../../core/core_lint
   injectable_generator: any
   auto_route_generator: any
   build_runner: any

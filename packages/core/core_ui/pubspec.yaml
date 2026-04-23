@@ -18,18 +18,21 @@ dependencies:
 
   google_fonts: ^8.0.2
   flutter_svg: ^2.2.4
-  flutter_gen: ^5.13.0+1
+  flutter_gen: ^5.14.0
+  feather_icons: any
 
   core_logic: any
   local_storage: any
 
+  vector_graphics: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: any
+  core_lint:
+    path: ../../core/core_lint
   injectable_generator: any
   build_runner: any
-  flutter_gen_runner: ^5.13.0+1
+  flutter_gen_runner: ^5.14.0
 
 flutter_gen:
   output: lib/src/generate

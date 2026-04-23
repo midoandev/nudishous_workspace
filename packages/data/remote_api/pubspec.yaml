@@ -25,6 +25,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: any
   injectable_generator: any
   build_runner: any
+  core_lint:
+    path: ../../core/core_lint

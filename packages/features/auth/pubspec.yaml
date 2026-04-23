@@ -18,6 +18,8 @@ dependencies:
   flutter_bloc: any
   auto_route: any
   dartz: any
+  flutter_hooks: any
+  feather_icons: any
 
   core_i18n: any
   core_logic: any
@@ -31,6 +33,9 @@ dev_dependencies:
   auto_route_generator: any
   injectable_generator: any
   build_runner: any
+
+  core_lint:
+    path: ../../core/core_lint
 
 
 flutter:

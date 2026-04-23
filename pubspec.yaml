@@ -10,6 +10,7 @@ workspace:
 
   #core
   - packages/core/core_logic
+  - packages/core/core_lint
   - packages/core/core_ui
   - packages/core/core_i18n
 
@@ -27,7 +28,6 @@ workspace:
 
 dev_dependencies:
   melos: ^7.5.1
-  flutter_lints: ^6.0.0
 
 dependency_overrides:
   #runner
@@ -38,6 +38,7 @@ dependency_overrides:
   # State
   bloc: ^9.2.0
   flutter_bloc: ^9.1.1
+  flutter_hooks: ^0.21.3+1
 
   # DI
   get_it: ^9.2.1
@@ -56,11 +57,24 @@ dependency_overrides:
   #storage
   shared_preferences: ^2.5.5
 
+  #ui
+  feather_icons: ^1.2.0
+
+
 melos:
   scripts:
     analyze:
-      exec: flutter analyze .
-      description: Menjalankan flutter analyze di semua package.
+      run: melos exec -c 1 -- "flutter analyze ."
+      description: Analyze semua package
+
+    analyze:fix:
+      run: melos exec -c 1 -- "dart fix --apply"
+      description: Auto fix semua package
+
+    lint:check:
+      run: |
+        melos exec -c 1 -- "flutter analyze . --fatal-infos --fatal-warnings"
+      description: Cek lint strict mode — error jika ada warning
 
     outdated:
       run: melos exec -- "flutter pub outdated"

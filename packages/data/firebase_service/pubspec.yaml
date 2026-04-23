@@ -21,10 +21,10 @@ dependencies:
   injectable: any
 
   core_logic: any
+  core_lint: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: any
   injectable_generator: any
   build_runner: any
