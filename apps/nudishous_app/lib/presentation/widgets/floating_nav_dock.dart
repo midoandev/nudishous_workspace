@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_ui/core_ui.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 
 class FloatingNavDock extends StatelessWidget {
@@ -33,13 +34,13 @@ class FloatingNavDock extends StatelessWidget {
           _buildNavItem(
             context: context,
             index: 0,
-            icon: Icons.bakery_dining,
+            icon: FeatherIcons.home,
             label: context.s.sandbox.title,
           ),
           _buildNavItem(
             context: context,
             index: 1,
-            icon: Icons.person,
+            icon: FeatherIcons.user,
             label: context.s.profile.title,
           ),
         ],
@@ -58,7 +59,7 @@ class FloatingNavDock extends StatelessWidget {
       onTap: () => tabsRouter.setActiveIndex(index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+        duration: Duration(milliseconds: isSelected ? 300 : 0),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isSelected ? context.colorScheme.primaryContainer : Colors.transparent,

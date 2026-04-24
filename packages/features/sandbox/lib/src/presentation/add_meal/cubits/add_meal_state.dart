@@ -1,45 +1,60 @@
-import 'package:core_logic/core_logic.dart';
-import 'package:sandbox/src/domain/entities/meal_entry.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/plate_item.dart';
 
-class AddMealState extends BaseState {
-  final List<MealEntry> searchResults;
+enum AddMealStatus { initial, loading, saving, success, failure }
+
+class AddMealState extends Equatable {
   final List<PlateItem> plateItems;
+  final double totalCalories;
+  final double totalProtein;
+  final double totalCarbs;
+  final double totalFat;
+  final AddMealStatus status;
   final String? errorMessage;
-  final bool isLoading;
 
   const AddMealState({
-    this.searchResults = const [],
     this.plateItems = const [],
+    this.totalCalories = 0,
+    this.totalProtein = 0,
+    this.totalCarbs = 0,
+    this.totalFat = 0,
+    this.status = AddMealStatus.initial,
     this.errorMessage,
-    this.isLoading = false,
   });
 
-  // Manual copyWith
+  // Memudahkan pengecekan status di UI
+  bool get isSaving => status == AddMealStatus.saving;
+  bool get isSuccess => status == AddMealStatus.success;
+
   AddMealState copyWith({
-    List<MealEntry>? searchResults,
     List<PlateItem>? plateItems,
+    double? totalCalories,
+    double? totalProtein,
+    double? totalCarbs,
+    double? totalFat,
+    AddMealStatus? status,
     String? errorMessage,
-    bool? isLoading,
   }) {
     return AddMealState(
-      searchResults: searchResults ?? this.searchResults,
       plateItems: plateItems ?? this.plateItems,
-      errorMessage: errorMessage, // Kita biarkan null jika tidak di-pass
-      isLoading: isLoading ?? this.isLoading,
+      totalCalories: totalCalories ?? this.totalCalories,
+      totalProtein: totalProtein ?? this.totalProtein,
+      totalCarbs: totalCarbs ?? this.totalCarbs,
+      totalFat: totalFat ?? this.totalFat,
+      status: status ?? this.status,
+      errorMessage: errorMessage,
     );
   }
 
-  // Kalkulasi total di level state
-  double get totalCalories =>
-      plateItems.fold(0, (sum, item) => sum + item.calories);
-
   @override
   List<Object?> get props => [
-    searchResults,
     plateItems,
+    totalCalories,
+    totalProtein,
+    totalCarbs,
+    totalFat,
+    status,
     errorMessage,
-    isLoading,
   ];
 }

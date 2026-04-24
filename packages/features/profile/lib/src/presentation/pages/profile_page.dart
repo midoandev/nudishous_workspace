@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubits/profile_cubit.dart';
 import '../cubits/profile_state.dart';
-import '../widgets/profile_authenticated_view.dart';
-import '../widgets/profile_guest_view.dart';
+import '../widgets/profile_body.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
@@ -24,17 +23,29 @@ class ProfilePage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ProfileCubit, ProfileUpdated>(
-        builder: (context, state) {
-          return switch (state) {
-            ProfileGuest() =>
-              const ProfileGuestView(), // ← tidak perlu AuthCubit!
-            ProfileLoading() => const AppLoadingScreen(),
-            ProfileLoaded() => ProfileAuthenticatedView(user: state.user),
-            // ProfileError()   => ProfileErrorView(message: state.message),
-            _ => const SizedBox.shrink(),
-          };
-        },
+      body: SafeArea(
+        child: BlocBuilder<ProfileCubit, ProfileUpdated>(
+          builder: (context, state) {
+            return switch (state) {
+              ProfileLoading() => const AppLoadingScreen(),
+              ProfileLoaded(user: final user) => ProfileBody(
+                user: user,
+                onSettingAction:() => context.navigateToPath(NavConstants.settings),
+                onAuthAction: () => context.read<ProfileCubit>().logout(),
+              ),
+              ProfileGuest() => ProfileBody(
+                onSettingAction:() => context.navigateToPath(NavConstants.settings),
+                onAuthAction:() async{
+                  await context.navigateToPath(NavConstants.auth);
+                  if (context.mounted) {
+                    await context.read<ProfileCubit>().onLoginSuccess();
+                  }
+                }
+              ),
+              _ => const SizedBox.shrink(),
+            };
+          },
+        ),
       ),
     );
   }

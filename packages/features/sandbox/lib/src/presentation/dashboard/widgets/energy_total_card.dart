@@ -17,7 +17,7 @@ class EnergyTotalCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withOpacity(0.3),
+        color: colorScheme.primaryContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(

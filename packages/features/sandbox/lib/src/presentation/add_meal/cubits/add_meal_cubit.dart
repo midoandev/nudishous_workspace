@@ -1,57 +1,91 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sandbox/src/domain/entities/meal_entry.dart';
 import 'package:sandbox/src/presentation/add_meal/cubits/add_meal_state.dart';
 
 import '../../../domain/entities/plate_item.dart';
-import '../../../domain/repositories/sandbox_repository.dart';
 
 @injectable
 class AddMealCubit extends Cubit<AddMealState> {
-  final SandboxRepository _repository;
+  final AddMealUseCase _addMealUseCase; // Panggil UseCase, jangan Repository langsung
 
-  AddMealCubit(this._repository) : super(const AddMealState());
+  AddMealCubit(this._addMealUseCase) : super(const AddMealState());
 
-  // 1. Logic Pencarian (Debounce biasanya di UI atau di sini)
-  Future<void> searchFood(String query) async {
-    if (query.length < 3) {
-      emit(state.copyWith(searchResults: []));
-      return;
-    }
+  // 1. Tambah Makanan ke Piring (Data dari SearchPage)
+  void addToPlate(FoodEntity food) {
+    // Cek dulu apakah makanan sudah ada di piring, biar nggak duplikat ID-nya
+    final isExist = state.plateItems.any((item) => item.food.code == food.code);
+    if (isExist) return;
 
-    emit(state.copyWith(isLoading: true));
+    final newItem = PlateItem(
+      id: DateTime.now().toString(), // ID unik untuk list di piring
+      food: food,
+      weightGrams: 100, // Default 100g
+    );
+
+    final updatedPlate = [...state.plateItems, newItem];
+    emit(state.copyWith(
+      plateItems: updatedPlate,
+      totalCalories: _calculateTotal(updatedPlate),
+    ));
+  }
+
+  // 2. Update Berat Makanan
+  void updateWeight(PlateItem item, double weight) {
+    final updatedList = state.plateItems.map((e) {
+      // Bandingkan pakai code unik dari FoodEntity
+      return e.food.code == item.food.code
+          ? e.copyWith(weightGrams: weight)
+          : e;
+    }).toList();
+
+    emit(state.copyWith(
+      plateItems: updatedList,
+      totalCalories: _calculateTotal(updatedList),
+    ));
+  }
+
+  // 3. Hapus dari Piring
+  void removeFromPlate(PlateItem item) {
+    final updatedPlate = state.plateItems
+        .where((e) => e.food.code != item.food.code)
+        .toList();
+
+    emit(state.copyWith(
+      plateItems: updatedPlate,
+      totalCalories: _calculateTotal(updatedPlate),
+    ));
+  }
+
+  // 4. Hitung Total Kalori (LaTeX Logic)
+  // Total = sum( (weight / 100) * calories100g )
+  double _calculateTotal(List<PlateItem> items) {
+    return items.fold(0, (sum, item) {
+      return sum + ((item.weightGrams / 100) * item.food.calories100g);
+    });
+  }
+
+  // 5. Simpan Semua ke Database
+  Future<void> saveAllMeals() async {
+    if (state.plateItems.isEmpty) return;
+
+    // Ubah STATUS-nya, bukan isSaving-nya
+    emit(state.copyWith(status: AddMealStatus.saving));
 
     try {
-      final results = await _repository.searchFood(query);
-      emit(state.copyWith(searchResults: results, isLoading: false));
+      for (final item in state.plateItems) {
+        await _addMealUseCase.execute(
+          food: item.food,
+          weight: item.weightGrams,
+        );
+      }
+      // Jika sukses, ubah ke success
+      emit(state.copyWith(status: AddMealStatus.success, plateItems: []));
     } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString(), isLoading: false));
+      emit(state.copyWith(
+        status: AddMealStatus.failure,
+        errorMessage: e.toString(),
+      ));
     }
-  }
-
-  // 2. Logic Tambah ke Piring
-  void addToPlate(MealEntry food) {
-    final newItem = PlateItem(food: food);
-    final updatedPlate = List<PlateItem>.from(state.plateItems)..add(newItem);
-
-    emit(
-      state.copyWith(
-        plateItems: updatedPlate,
-        searchResults: [], // Clear search setelah pilih
-      ),
-    );
-  }
-
-  void updateWeight(int index, double weight) {
-    final newList = List<PlateItem>.from(state.plateItems);
-    newList[index] = newList[index].copyWith(weightGrams: weight);
-    emit(state.copyWith(plateItems: newList));
-  }
-
-  // 4. Hapus dari Piring
-  void removeFromPlate(int index) {
-    final updatedPlate = List<PlateItem>.from(state.plateItems)
-      ..removeAt(index);
-    emit(state.copyWith(plateItems: updatedPlate));
   }
 }

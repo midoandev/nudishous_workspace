@@ -5,7 +5,7 @@ import 'package:local_storage/local_storage.dart';
 import '../../../auth.dart';
 import '../../domain/usecases/login_usecase.dart';
 
-@singleton
+@injectable
 class AuthCubit extends Cubit<AuthUpdated> {
   final LoginUseCase _loginUseCase;
   final PreferenceService _preferenceService;
@@ -13,11 +13,11 @@ class AuthCubit extends Cubit<AuthUpdated> {
   AuthCubit(this._loginUseCase, this._preferenceService)
     : super(const AuthLoginInitial());
 
-  String get title => state == AuthLoginInitial() ? 'Masuk' : 'Daftar';
+  String get title => state == const AuthLoginInitial() ? 'Masuk' : 'Daftar';
 
   void changePage() {
     emit(
-      state == AuthRegisterInitial()
+      state == const AuthRegisterInitial()
           ? const AuthLoginInitial()
           : const AuthRegisterInitial(),
     );

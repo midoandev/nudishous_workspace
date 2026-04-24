@@ -1,8 +1,11 @@
-import 'package:core_logic/core_logic.dart';
-import 'package:injectable/injectable.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
+import 'dart:async';
 
-import '../models/food_item.dart';
+import 'package:core_logic/core_logic.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+import 'package:openfoodfacts/openfoodfacts.dart' hide Nutriments;
+
+import '../models/food_item.dart' ;
 
 @lazySingleton
 class OpenFoodApiService {
@@ -11,50 +14,112 @@ class OpenFoodApiService {
     final currentFlavor = FlavorConfig.instance;
 
     OpenFoodAPIConfiguration.userAgent = UserAgent(
-      name: 'Nudishous',
+      name: 'NudishousApp',
+      version: '1.0.0',
       url: 'https://nudishous.com',
+      system: 'Android/iOS',
     );
+
+    // 2. Set Bahasa dan Negara Global (KRUSIAL)
+    OpenFoodAPIConfiguration.globalLanguages = [
+      OpenFoodFactsLanguage.INDONESIAN,
+    ];
+    OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.INDONESIA;
 
     OpenFoodAPIConfiguration.globalUser = User(
       userId: currentFlavor.offUser ?? '',
       password: currentFlavor.offPassword ?? '',
     );
-    print(
-      'fasd ${currentFlavor.offUser} ${currentFlavor.offPassword} ${currentFlavor.apiBaseUrl} ${currentFlavor.appTitle}',
+
+    debugPrint(
+      'fasd ${currentFlavor.offUser} ${currentFlavor
+          .offPassword} ${currentFlavor.apiBaseUrl} ${currentFlavor.appTitle}',
     );
   }
 
   Future<List<FoodItem>> search(String query) async {
-    final configuration = ProductSearchQueryConfiguration(
-      parametersList: <Parameter>[
-        SearchTerms(terms: [query]),
-      ],
-      language: OpenFoodFactsLanguage.INDONESIAN,
-      fields: [
-        ProductField.BARCODE,
-        ProductField.NAME,
-        ProductField.IMAGE_FRONT_URL,
-        ProductField.NUTRIMENTS,
-      ],
-      version: ProductQueryVersion.v3,
-    );
-    print('dsklfmk $query');
-    final result = await OpenFoodAPIClient.searchProducts(null, configuration);
-    if (result.products == null) return [];
+    // Validasi input minimal 3 karakter untuk efisiensi API
+    if (query.isEmpty || query.length < 3) return [];
 
-    return result.products!.map((product) {
-      final nut = product.nutriments;
-      return FoodItem(
-        barcode: product.barcode ?? '',
-        name: product.productName ?? 'Unknown',
-        imageUrl: product.imageFrontUrl,
-        calories:
-            nut?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams) ?? 0,
-        carbs:
-            nut?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams) ?? 0,
-        protein: nut?.getValue(Nutrient.proteins, PerSize.oneHundredGrams) ?? 0,
-        fat: nut?.getValue(Nutrient.fat, PerSize.oneHundredGrams) ?? 0,
+    try {
+      final configuration = ProductSearchQueryConfiguration(
+        parametersList: <Parameter>[
+          SearchTerms(terms: [query]),
+          const PageSize(size: 5), // Batasi hasil agar tidak berat
+        ],
+        language: OpenFoodFactsLanguage.INDONESIAN,
+        fields: [
+          ProductField.NAME,
+          ProductField.BRANDS,
+          ProductField.BARCODE,
+          ProductField.IMAGE_FRONT_URL,
+          ProductField.NUTRIMENTS,
+          ProductField.QUANTITY,
+          ProductField.NUTRIMENTS,
+          ProductField.SERVING_SIZE,
+          ProductField.NUTRISCORE,
+          ProductField.NOVA_GROUP,
+          ProductField.ALLERGENS,
+          ProductField.INGREDIENTS_TEXT,
+          ProductField.CATEGORIES,
+          ProductField.IMAGE_NUTRITION_URL,
+        ],
+        version: ProductQueryVersion.v3,
       );
-    }).toList();
+
+      // Tambahkan timeout agar aplikasi tidak "gantung" saat koneksi lambat
+      final result = await OpenFoodAPIClient.searchProducts(null, configuration);
+
+      // Log status untuk debugging M.Kom style
+      debugPrint(
+        '🔍 Search Result Status: ${result.pageSize} ${result.page} ${result
+            .count} ${result.pageCount}',
+      );
+
+      if (result.products == null) return [];
+
+      return result.products!.map((product) {
+        // Tetap debugPrint untuk memantau data mentah jika perlu
+        debugPrint('🔍 Mapping Product: ${product.barcode} - ${product.productName}');
+
+        final nut = product.nutriments;
+
+        return FoodItem(
+          code: product.barcode,
+          productName: product.productName,
+          brands: product.brands,
+          quantity: product.quantity,
+          imageFrontUrl: product.imageFrontUrl,
+          imageFrontSmallUrl: product.imageFrontSmallUrl, // Penting untuk optimasi list
+          servingSize: product.servingSize,
+          servingQuantity: product.servingQuantity,
+          nutriscore: product.nutriscore,
+          ecoscore: product.ecoscoreGrade,
+          novaGroup: product.novaGroup,
+
+          // Mapping ke nested class Nutriments milik kita
+          nutriments: Nutriments(
+            energyKcal100G: nut?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams),
+            energyKj100G: nut?.getValue(Nutrient.energyKJ, PerSize.oneHundredGrams),
+            proteins100G: nut?.getValue(Nutrient.proteins, PerSize.oneHundredGrams),
+            fat100G: nut?.getValue(Nutrient.fat, PerSize.oneHundredGrams),
+            saturatedFat100G: nut?.getValue(Nutrient.saturatedFat, PerSize.oneHundredGrams),
+            carbohydrates100G: nut?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams),
+            sugars100G: nut?.getValue(Nutrient.sugars, PerSize.oneHundredGrams),
+            calcium100G: nut?.getValue(Nutrient.calcium, PerSize.oneHundredGrams),
+            cholesterol100G: nut?.getValue(Nutrient.cholesterol, PerSize.oneHundredGrams),
+            sodium100G: nut?.getValue(Nutrient.sodium, PerSize.oneHundredGrams),
+            salt100G: nut?.getValue(Nutrient.salt, PerSize.oneHundredGrams),
+            fiber100G: nut?.getValue(Nutrient.fiber, PerSize.oneHundredGrams),
+          ),
+        );
+      }).toList();
+    } on TimeoutException {
+      debugPrint('⏳ OFF API Search Timeout');
+      return [];
+    } catch (e) {
+      debugPrint('❌ OFF API Search Error: $e');
+      return [];
+    }
   }
 }

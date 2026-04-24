@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(seconds: 1));
     // 2. Jika sudah selesai, pindah ke Dashboard
     if (mounted) {
-      context.router.replace(const MainRoute());
+      await context.router.replace(const MainRoute());
     }
   }
 

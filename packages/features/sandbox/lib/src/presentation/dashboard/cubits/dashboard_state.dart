@@ -1,17 +1,30 @@
+// Contoh ringkas DashboardState
 import 'package:core_logic/core_logic.dart';
-import 'package:sandbox/src/domain/entities/meal_entry.dart';
 
-class DashboardUpdated extends BaseState {
-  final List<MealEntry> item;
+sealed class DashboardState extends BaseState {
+  const DashboardState();
+  @override
+  List<Object?> get props => [];
+}
 
-  const DashboardUpdated(this.item);
+class DashboardLoading extends DashboardState {}
 
-  double get totalCalories =>
-      item.fold(0, (sum, item) => sum + item.calculatedCalories);
+class DashboardLoaded extends DashboardState {
+  final DailyNutritionEntity nutrition;
+  final double dailyGoal;
 
-  double get totalProtein =>
-      item.fold(0, (sum, item) => sum + item.calculatedProtein);
+  const DashboardLoaded({
+    required this.nutrition,
+    required this.dailyGoal,
+  });
 
   @override
-  List<Object?> get props => [item];
+  List<Object?> get props => [nutrition, dailyGoal];
+}
+
+class DashboardError extends DashboardState {
+  final String message;
+  const DashboardError(this.message);
+  @override
+  List<Object?> get props => [message];
 }

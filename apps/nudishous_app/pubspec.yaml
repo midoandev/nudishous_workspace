@@ -1,8 +1,8 @@
 name: nudishous
-description: "A new Flutter project."
+description: "Track your health"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 resolution: workspace
-version: 1.0.0+1
+version: 1.0.0+100001
 
 environment:
   sdk: ^3.11.0
@@ -15,7 +15,6 @@ dependencies:
   injectable: any
   flutter_bloc: any
   auto_route: any
-  shared_preferences: any
   feather_icons: any
 
   #Feature

@@ -19,7 +19,6 @@ class ProfileCubit extends Cubit<ProfileUpdated> {
     final token = await _preferenceService.getToken();
 
     if (token == null) {
-      print('ladf $token');
       emit(const ProfileGuest());
       return;
     }

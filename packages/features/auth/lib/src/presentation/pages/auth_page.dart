@@ -14,7 +14,7 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider.value(value: getIt<AuthCubit>(), child: this);
+    return BlocProvider(create: (_) => getIt<AuthCubit>(), child: this);
   }
 
   @override
@@ -29,11 +29,12 @@ class AuthPage extends StatelessWidget implements AutoRouteWrapper {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(state == AuthLoginInitial() ? 'Masuk' : 'Daftar'),
+            title: Text(state == const AuthLoginInitial() ? 'Masuk' : 'Daftar'),
           ),
           body: switch (state) {
             AuthLoginInitial() => LoginView(
               onSwitchToRegister: () => context.read<AuthCubit>().changePage(),
+              loginWithGoogle: () {},
             ),
             AuthRegisterInitial() => RegisterView(
               onSwitchToRegister: () => context.read<AuthCubit>().changePage(),

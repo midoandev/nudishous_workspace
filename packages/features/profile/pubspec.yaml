@@ -18,9 +18,11 @@ dependencies:
   flutter_bloc: any
   auto_route: any
   dartz: any
+  feather_icons: any
 
   core_logic: any
   core_ui: any
+  core_i18n: any
 
   firebase_service: any
   local_storage: any

@@ -54,8 +54,6 @@ dependency_overrides:
   # Routing
   auto_route: ^11.1.0
 
-  #storage
-  shared_preferences: ^2.5.5
 
   #ui
   feather_icons: ^1.2.0

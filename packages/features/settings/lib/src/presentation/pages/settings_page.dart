@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
+import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,51 +21,92 @@ class SettingsPage extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     // Kita gunakan extension context.s yang kita buat tadi
     final s = context.s;
+    final themeMode = context.watch<ThemeCubit>().state;
+    final currentLocale = context.watch<LocaleCubit>().state;
 
     return Scaffold(
       appBar: AppBar(title: Text(s.settings.title)),
       body: ListView(
         children: [
+          buildSectionHeader(s.settings.section_preferences),
           ListTile(
-            leading: const Icon(Icons.palette_outlined),
-            title: Text(context.s.settings.theme),
-            // misal: "App Theme"
+            key: const Key('settings_theme_tile'),
+            leading: const Icon(FeatherIcons.sun),
+            title: Text(s.settings.theme),
             subtitle: Text(
-              context.watch<ThemeCubit>().state == ThemeMode.dark
-                  ? context.s.settings.theme_dark
-                  : context.s.settings.theme_light,
+              themeMode == ThemeMode.dark
+                  ? s.settings.theme_dark
+                  : s.settings.theme_light,
             ),
-            trailing: const Icon(Icons.chevron_right, size: 20),
+            trailing: const Icon(FeatherIcons.chevronRight, size: 20),
             onTap: () => _showThemePicker(context),
           ),
           ListTile(
+            key: const Key('settings_language_tile'),
             leading: const Icon(Icons.translate_outlined),
-            title: Text(context.s.settings.language),
+            title: Text(s.settings.language),
             subtitle: Text(
-              context.watch<LocaleCubit>().state.languageCode == 'id'
-                  ? context
-                        .s
-                        .settings
-                        .indonesia // "Indonesia"
-                  : context.s.settings.english, // "English"
+              currentLocale.languageCode == 'id'
+                  ? s.settings.indonesia
+                  : s.settings.english,
             ),
-            trailing: const Icon(Icons.chevron_right, size: 20),
+            trailing: const Icon(FeatherIcons.chevronRight, size: 20),
             onTap: () => _showLanguagePicker(context),
           ),
 
           const Divider(),
-          // SEKSI INFO
+          // --- SECTION: SECURITY (Berdasarkan folder fiturmu) ---
+          buildSectionHeader(s.settings.security),
           ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: Text(s.settings.about),
-            onTap: () {
-              showAboutDialog(
-                context: context,
-                applicationName: s.app.title,
-                applicationVersion: '1.0.0',
-              );
-            },
+            leading: const Icon(FeatherIcons.lock),
+            title: Text(s.settings.change_password),
+            onTap: () {},
           ),
+          ListTile(
+            leading: const Icon(FeatherIcons.smartphone),
+            title: Text(s.settings.my_devices),
+            onTap: () {},
+          ),
+
+          const Divider(),
+          ListTile(
+            leading: const Icon(FeatherIcons.helpCircle),
+            title: Text(s.profile.faq),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(FeatherIcons.shield),
+            title: Text(s.settings.privacy_policy),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(FeatherIcons.info),
+            title: Text(s.settings.about),
+            onTap: () => showAboutDialog(
+              context: context,
+              applicationName: s.app.title,
+              applicationVersion: '1.0.0',
+            ),
+          ),
+
+          // SEKSI BAHAYA
+          ListTile(
+            leading: const Icon(FeatherIcons.userX, color: Colors.red),
+            title: Text(
+              s.settings.delete_account,
+              style: const TextStyle(color: Colors.red),
+            ),
+            // onTap: () => _confirmDeleteAccount(context, s),
+          ),
+
+          const SizedBox(height: 20),
+          Center(
+            child: Text(
+              "${s.profile.version} ${AppInfo.fullVersion}",
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -86,7 +129,8 @@ class SettingsPage extends StatelessWidget implements AutoRouteWrapper {
               ),
               ListTile(
                 title: Text(context.s.settings.english),
-                trailing: context.watch<LocaleCubit>().state == Locale('en')
+                trailing:
+                    context.watch<LocaleCubit>().state == const Locale('en')
                     ? Icon(Icons.check, color: context.colorScheme.primary)
                     : null,
                 onTap: () {
@@ -96,7 +140,8 @@ class SettingsPage extends StatelessWidget implements AutoRouteWrapper {
               ),
               ListTile(
                 title: Text(context.s.settings.indonesia),
-                trailing: context.watch<LocaleCubit>().state == Locale('id')
+                trailing:
+                    context.watch<LocaleCubit>().state == const Locale('id')
                     ? Icon(Icons.check, color: context.colorScheme.primary)
                     : null,
                 onTap: () {
@@ -158,6 +203,20 @@ class SettingsPage extends StatelessWidget implements AutoRouteWrapper {
           ),
         );
       },
+    );
+  }
+
+  Widget buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Text(
+        title.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 }

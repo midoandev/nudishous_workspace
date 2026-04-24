@@ -1,19 +1,20 @@
 import 'package:core_i18n/core_i18n.dart';
+import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/plate_item.dart';
-import '../cubits/add_meal_cubit.dart';
 
 class PlateList extends StatelessWidget {
   final List<PlateItem> plateItems;
+  final Function(PlateItem) removeItem;
+  final Function(String, PlateItem) onSubmit;
 
-  const PlateList({super.key, required this.plateItems});
+  const PlateList({super.key, required this.plateItems, required this.removeItem, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = context.colorScheme;
+    final textTheme = context.textTheme;
 
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 120),
@@ -46,7 +47,7 @@ class PlateList extends StatelessWidget {
                               width: 48,
                               height: 48,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => Container(
+                              errorBuilder: (_, _, _) => Container(
                                 width: 48,
                                 height: 48,
                                 color: colorScheme.surfaceContainerHighest,
@@ -59,7 +60,7 @@ class PlateList extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Text(
                               item.food.name,
@@ -73,39 +74,38 @@ class PlateList extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline, size: 20),
-                      onPressed: () =>
-                          context.read<AddMealCubit>().removeFromPlate(index),
+                      onPressed: () => removeItem(item),
                     ),
                   ],
                 ),
                 const Divider(),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            context.s.sandbox.addMeal.weightLabel,
-                            style: textTheme.bodySmall,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          context.s.sandbox.addMeal.weightLabel,
+                          style: textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '${item.food.calories100g.toStringAsFixed(0)} kcal',
+                          style: TextStyle(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '${item.calories.toStringAsFixed(0)} kcal',
-                            style: TextStyle(
-                              color: colorScheme.primary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     // Gram Input
                     SizedBox(
-                      width: 100,
+                      width: 80,
                       child: TextField(
                         keyboardType: TextInputType.number,
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.center,
                         decoration: const InputDecoration(
                           suffixText: ' g',
                           isDense: true,
@@ -114,13 +114,7 @@ class PlateList extends StatelessWidget {
                             horizontal: 12,
                           ),
                         ),
-                        onChanged: (val) {
-                          final weight = double.tryParse(val) ?? 0;
-                          context.read<AddMealCubit>().updateWeight(
-                            index,
-                            weight,
-                          );
-                        },
+                        onSubmitted:(value) => onSubmit(value, item)
                       ),
                     ),
                   ],

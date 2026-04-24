@@ -27,7 +27,6 @@ class FlavorConfig {
 
     ConfigEnv.verifyConfig();
 
-    print('dsfklmds $flavor $effectiveUrl');
     _instance = FlavorConfig._internal(
         flavor,
         appTitle: effectiveName,

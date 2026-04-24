@@ -9,15 +9,16 @@ import 'package:openfood_api/openfood_api.dart';
 import 'package:profile/profile.dart';
 import 'package:remote_api/remote_api.dart';
 import 'package:sandbox/sandbox.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> configureDependencies() async {
   // 1. Async manual registration
   // ✅ SharedPreferences — di-register manual di sini karena async
-  final prefs = await SharedPreferences.getInstance();
-  getIt.registerSingleton<SharedPreferences>(prefs);
+  // final prefs = await SharedPreferences.getInstance();
+  // getIt.registerSingleton<SharedPreferences>(prefs);
 
+  await AppInfo.init();
   // 2. Generated configurators — urutan wajib!
+  await configureLogicInjection();
   await configureUiInjection();
   await configureLocaleInjection();
   await configureLocalStorageInjection();

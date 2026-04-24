@@ -16,3 +16,19 @@ extension ResponsiveExtension on BuildContext {
 
   bool get isMobile => screenWidth < 600;
 }
+
+extension MediaQueryExtension on BuildContext {
+  // Mengambil seluruh data MediaQuery
+  MediaQueryData get mq => MediaQuery.of(this);
+
+  // Pintasan untuk lebar dan tinggi layar
+  double get screenWidth => mq.size.width;
+  double get screenHeight => mq.size.height;
+
+  // Pintasan untuk padding (misal: status bar)
+  double get paddingTop => mq.padding.top;
+  double get paddingBottom => mq.padding.bottom;
+
+  // Cek orientasi
+  bool get isLandscape => mq.orientation == Orientation.landscape;
+}

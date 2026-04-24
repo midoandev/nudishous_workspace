@@ -1,22 +1,29 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:sandbox/src/domain/entities/meal_entry.dart';
 
 import 'dashboard_state.dart';
 
-@singleton
-class DashboardCubit extends Cubit<DashboardUpdated> {
-  DashboardCubit() : super(const DashboardUpdated([]));
 
-  void addItem(MealEntry item) {
-    final newList = List<MealEntry>.from(state.item)..add(item);
-    emit(DashboardUpdated(newList));
+@injectable
+class DashboardCubit extends Cubit<DashboardState> {
+  final GetDailyNutritionUseCase _getDailyNutrition;
+
+  DashboardCubit(this._getDailyNutrition) : super(DashboardLoading()){
+    fetchDashboardData();
   }
 
-  void updateQuantity(String id, double grams) {
-    final newList = state.item.map((item) {
-      return item.id == id ? item.copyWith(grams: grams) : item;
-    }).toList();
-    emit(DashboardUpdated(newList));
+  Future<void> fetchDashboardData() async {
+    emit(DashboardLoading());
+    try {
+      final nutrition = await _getDailyNutrition.execute(DateTime.now());
+
+      emit(DashboardLoaded(
+        nutrition: nutrition,
+        dailyGoal: 2000, // Sementara hardcoded, nanti ambil dari Prefs
+      ));
+    } catch (e) {
+      emit(DashboardError(e.toString()));
+    }
   }
 }
