@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sandbox/src/presentation/search/cubits/search_cubit.dart';
+import 'package:sandbox/src/presentation/search/widgets/search_error_view.dart';
 
-import '../cubits/search_state.dart';
-import '../widgets/build_info_state.dart';
-import '../widgets/build_result_list.dart';
+import 'cubits/search_state.dart';
+import 'widgets/build_info_state.dart';
+import 'widgets/build_result_list.dart';
 
 @RoutePage()
 class SearchPage extends HookWidget implements AutoRouteWrapper {
@@ -90,10 +91,10 @@ class SearchPage extends HookWidget implements AutoRouteWrapper {
                         icon: Icons.electric_moped,
                         label: l.search_empty(q),
                       ),
-                      SearchError(message: final msg) => BuildInfoState(
-                        icon: Icons.error_outline,
-                        label: l.search_error,
-                        subLabel: msg,
+                      SearchError() => SearchMessageView(
+                        icon: Icons.cloud_off_rounded,
+                        title: context.s.sandbox.search.search_error, // i18n: "Connection Error"
+                        onRetry: () => context.read<SearchCubit>().onSearchChanged(searchText.text),
                       ),
                     },
                   );

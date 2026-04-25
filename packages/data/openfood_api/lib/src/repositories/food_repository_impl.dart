@@ -15,7 +15,6 @@ class FoodRepositoryImpl implements IFoodRepository {
   @override
   Future<List<FoodEntity>> searchProducts(String query) async {
     final List<FoodItem> items = await _apiService.search(query);
-
     return items.map((item) => item.toEntity()).toList();
   }
 

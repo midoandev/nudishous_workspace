@@ -40,6 +40,7 @@ sandbox:
     search_initial_instruction: "Mulai mengetik untuk mencatat nutrisi Anda"
     search_min_chars: "Masukkan minimal 3 karakter"
     add_to_diary: "Tambah ke Catatan"
+    try_again: "Coba Lagi"
 
 auth:
   title: "Auth"

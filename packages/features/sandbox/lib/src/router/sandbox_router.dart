@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:sandbox/src/presentation/search/pages/search_page.dart';
+import 'package:sandbox/src/presentation/search/search_page.dart';
 
-import '../presentation/add_meal/pages/add_meal_page.dart';
+import '../presentation/add_meal/add_meal_page.dart';
 import 'sandbox_router.gr.dart';
 
 @AutoRouterConfig()

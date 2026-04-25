@@ -1,4 +1,5 @@
 import 'package:core_logic/core_logic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sandbox/src/presentation/add_meal/cubits/add_meal_state.dart';
@@ -104,6 +105,7 @@ class AddMealCubit extends Cubit<AddMealState> {
       // Jika sukses, ubah ke success
       emit(state.copyWith(status: AddMealStatus.success, plateItems: []));
     } catch (e) {
+      debugPrint('errror $e');
       emit(
         state.copyWith(
           status: AddMealStatus.failure,

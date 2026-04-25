@@ -40,6 +40,7 @@ sandbox:
     search_initial_instruction: "Start typing to track your nutrition"
     search_min_chars: "Please enter at least 3 characters"
     add_to_diary: "Add to Diary"
+    try_again: "Try Again"
 
 
 auth:

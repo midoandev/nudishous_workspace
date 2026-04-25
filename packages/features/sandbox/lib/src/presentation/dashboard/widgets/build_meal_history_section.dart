@@ -37,7 +37,7 @@ class BuildMealHistorySection extends StatelessWidget {
                 ),
               ),
               // Link "Lihat Semua" jika nanti datanya sudah banyak
-              IconButton(onPressed: addMeal, icon: const Icon(Icons.add)),
+              IconButton(onPressed: addMeal, icon: Icon(Icons.add_circle, color: context.colorScheme.primary)),
             ],
           ),
           const SizedBox(height: 12),

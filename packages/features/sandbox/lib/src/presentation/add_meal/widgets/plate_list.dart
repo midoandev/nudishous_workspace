@@ -9,7 +9,12 @@ class PlateList extends StatelessWidget {
   final Function(PlateItem) removeItem;
   final Function(String, PlateItem) onSubmit;
 
-  const PlateList({super.key, required this.plateItems, required this.removeItem, required this.onSubmit});
+  const PlateList({
+    super.key,
+    required this.plateItems,
+    required this.removeItem,
+    required this.onSubmit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +111,21 @@ class PlateList extends StatelessWidget {
                       child: TextField(
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           suffixText: ' g',
+                          hint: Text(
+                            '100',
+                            style: context.textTheme.labelSmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant.withValues(alpha: .6),
+                            ),
+                          ),
                           isDense: true,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             vertical: 8,
                             horizontal: 12,
                           ),
                         ),
-                        onSubmitted:(value) => onSubmit(value, item)
+                        onSubmitted: (value) => onSubmit(value, item),
                       ),
                     ),
                   ],

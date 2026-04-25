@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/sandbox.dart';
 
-import '../../add_meal/widgets/mid_end_float_fab_location.dart';
-import '../widgets/build_macro_section.dart';
-import '../widgets/build_meal_history_section.dart';
-import '../widgets/build_sliver_header.dart';
+import '../add_meal/widgets/mid_end_float_fab_location.dart';
+import 'widgets/build_macro_section.dart';
+import 'widgets/build_meal_history_section.dart';
+import 'widgets/build_sliver_header.dart';
 
 @RoutePage()
 class DashboardPage extends StatelessWidget implements AutoRouteWrapper {

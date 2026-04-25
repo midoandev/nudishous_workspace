@@ -20,7 +20,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(SearchLoading());
     try {
       final results = await _searchFood.execute(query);
-      emit(SearchLoaded(results));
+      emit(results.isEmpty ? SearchEmpty(query) : SearchLoaded(results));
     } catch (e) {
       emit(SearchError(e.toString()));
     }

@@ -29,36 +29,41 @@ class FoodItem {
     this.nutriments,
   });
 
-  // Mapper ke Domain Entity yang Suci
   FoodEntity toEntity() {
     return FoodEntity(
-      // Handle Barcode Null: Jika null, pakai timestamp + nama produk agar unik
       code: code ?? "no-code-${DateTime.now().millisecondsSinceEpoch}",
       name: productName ?? 'Unknown Product',
       brand: brands ?? 'Generic Brand',
       imageUrl: imageFrontSmallUrl ?? imageFrontUrl ?? '',
 
-      // Nutrisi Dasar (per 100g/ml)
-      calories100g: _calculateCalories().toDouble(),
-      proteins100g: nutriments?.proteins100G ?? 0,
-      carbs100g: nutriments?.carbohydrates100G ?? 0,
-      fats100g: nutriments?.fat100G ?? 0,
+      // Pastikan tetap double untuk presisi kalkulasi di Add Meal
+      calories100g: _calculateCalories(),
+      proteins100g: nutriments?.proteins100G ?? 0.0,
+      carbs100g: nutriments?.carbohydrates100G ?? 0.0,
+      fats100g: nutriments?.fat100G ?? 0.0,
 
-      // Data Tambahan Pro
       servingSize: servingSize ?? '',
-      servingQuantity: servingQuantity ?? 0,
+      servingQuantity: servingQuantity ?? 0.0,
       nutriscore: nutriscore?.toUpperCase() ?? '?',
       ecoscore: ecoscore?.toUpperCase() ?? '?',
       novaGroup: novaGroup ?? 0,
     );
   }
 
-  num _calculateCalories() {
-    if (nutriments == null) return 0;
-    // Prioritas kcal, fallback ke kJ
-    if (nutriments!.energyKcal100G != null) return nutriments!.energyKcal100G!;
-    if (nutriments!.energyKj100G != null) return nutriments!.energyKj100G! / 4.184;
-    return 0;
+  double _calculateCalories() {
+    if (nutriments == null) return 0.0;
+
+    // 1. Coba kcal dulu
+    if (nutriments!.energyKcal100G != null && nutriments!.energyKcal100G! > 0) {
+      return nutriments!.energyKcal100G!;
+    }
+
+    // 2. Fallback ke kJ (1 kJ = 0.239 kcal)
+    if (nutriments!.energyKj100G != null && nutriments!.energyKj100G! > 0) {
+      return nutriments!.energyKj100G! * 0.239;
+    }
+
+    return 0.0;
   }
 }
 

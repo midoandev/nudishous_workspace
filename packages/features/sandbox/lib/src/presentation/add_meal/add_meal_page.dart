@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/src/presentation/add_meal/widgets/build_meal_type_selector.dart';
 import 'package:sandbox/src/presentation/add_meal/widgets/meal_type_selector.dart';
 
-import '../../../router/sandbox_router.gr.dart';
-import '../cubits/add_meal_cubit.dart';
-import '../cubits/add_meal_state.dart';
-import '../widgets/plate_list.dart';
+import '../../router/sandbox_router.gr.dart';
+import 'cubits/add_meal_cubit.dart';
+import 'cubits/add_meal_state.dart';
+import 'widgets/plate_list.dart';
 
 @RoutePage()
 class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
@@ -86,15 +86,6 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
                   newSelection,
                 );
               },),
-              // BuildMealTypeSelector(
-              //   state: state,
-              //   onSelectionChanged: (Set<MealType> newSelection) {
-              //     context.read<AddMealCubit>().changeMealType(
-              //       newSelection.first,
-              //     );
-              //   },
-              // ),
-              // 2. Plate List Section
               Expanded(
                 child: state.plateItems.isEmpty
                     ? _buildEmptyState(context, s)
