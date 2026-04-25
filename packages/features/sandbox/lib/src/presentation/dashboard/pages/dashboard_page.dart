@@ -114,7 +114,16 @@ class DashboardPage extends StatelessWidget implements AutoRouteWrapper {
     required List<MealLogEntity> logs,
   }) {
     if (logs.isEmpty) {
-      return const Center(child: Text("Belum ada makanan hari ini"));
+      return Center(child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+          Icon(Icons.fastfood_outlined, size: 48, color: context.colorScheme.primary),
+          const SizedBox(height: 8),
+          Text(context.s.sandbox.emptyState.title, style: context.textTheme.titleMedium?.copyWith()),
+          Text(context.s.sandbox.emptyState.subtitle, style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w400)),
+        ],
+      ));
     }
 
     return Column(

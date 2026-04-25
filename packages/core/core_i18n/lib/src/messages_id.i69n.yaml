@@ -5,12 +5,15 @@ app:
 sandbox:
   title: "Sandbox"
   greeting: "Ayo pantau progresmu ✌️"
+  remaining: "Sisa"
+  goal: "Target Harian"
   energyTotal: "Total Energi"
-  kcalGained: "Kcal Masuk"
+  kcalGained: "Kkal Masuk"
   breakfast: "Sarapan"
   lunch: "Makan Siang"
   dinner: "Makan Malam"
   snack: "Cemilan"
+  kcal: "kkal"
   emptyState:
     title: "Belum ada data hari ini"
     subtitle: "Mulai catat progresmu sekarang!"

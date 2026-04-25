@@ -5,12 +5,15 @@ app:
 sandbox:
   title: "Sandbox"
   greeting: "Let's track your progress ✌️"
+  remaining: "Remaining"
+  goal: "Daily Goal"
   energyTotal: "Energy Total"
   kcalGained: "Kcal Gained"
   breakfast: "Breakfast"
   lunch: "Lunch"
   dinner: "Dinner"
   snack: "Snack"
+  kcal: "kcal"
   emptyState:
     title: "No data today"
     subtitle: "Start tracking your progress now!"

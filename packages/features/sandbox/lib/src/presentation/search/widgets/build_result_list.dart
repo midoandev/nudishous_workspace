@@ -1,3 +1,4 @@
+import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class BuildResultList extends StatelessWidget {
             ],
           ),
           subtitle: Text(
-            "${food.calories100g.toInt()} kcal / 100g",
+            "${food.calories100g.toInt()} ${context.s.sandbox.kcal} / 100g",
             style: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.primary),
           ),

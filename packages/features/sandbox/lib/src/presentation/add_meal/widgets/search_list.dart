@@ -1,3 +1,4 @@
+import 'package:core_i18n/core_i18n.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:sandbox/src/domain/entities/meal_entry.dart';
@@ -38,7 +39,7 @@ class SearchList extends StatelessWidget {
             food.name,
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
-          subtitle: Text('${food.calories.toStringAsFixed(0)} kcal / 100g'),
+          subtitle: Text('${food.calories.toStringAsFixed(0)} ${context.s.sandbox.kcal} / 100g'),
           trailing: IconButton(
             icon: Icon(Icons.add_circle, color: colorScheme.primary),
             onPressed: () => selectMeal(food),
