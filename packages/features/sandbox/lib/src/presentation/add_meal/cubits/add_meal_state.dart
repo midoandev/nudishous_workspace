@@ -1,3 +1,4 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/plate_item.dart';
@@ -6,6 +7,7 @@ enum AddMealStatus { initial, loading, saving, success, failure }
 
 class AddMealState extends Equatable {
   final List<PlateItem> plateItems;
+  final MealType selectedMealType; // TAMBAHKAN INI
   final double totalCalories;
   final double totalProtein;
   final double totalCarbs;
@@ -20,6 +22,7 @@ class AddMealState extends Equatable {
     this.totalCarbs = 0,
     this.totalFat = 0,
     this.status = AddMealStatus.initial,
+    this.selectedMealType = MealType.snack,
     this.errorMessage,
   });
 
@@ -35,6 +38,7 @@ class AddMealState extends Equatable {
     double? totalFat,
     AddMealStatus? status,
     String? errorMessage,
+    MealType? selectedMealType,
   }) {
     return AddMealState(
       plateItems: plateItems ?? this.plateItems,
@@ -43,6 +47,7 @@ class AddMealState extends Equatable {
       totalCarbs: totalCarbs ?? this.totalCarbs,
       totalFat: totalFat ?? this.totalFat,
       status: status ?? this.status,
+      selectedMealType: selectedMealType ?? this.selectedMealType,
       errorMessage: errorMessage,
     );
   }

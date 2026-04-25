@@ -11,14 +11,25 @@ class MealTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: context.colorScheme.surfaceContainer,
-          borderRadius: BorderRadius.circular(8),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.network(
+          log.food.imageUrl,
+          width: 48,
+          height: 48,
+          fit: BoxFit.cover,
+          errorBuilder: (_, _, _) => Container(
+            width: 48,
+            height: 48,
+            color: context.colorScheme.surfaceContainerHighest,
+            child: Icon(
+              Icons.fastfood_outlined,
+              color: context.colorScheme.onSurface.withValues(
+                alpha: .5,
+              ),
+            ),
+          ),
         ),
-        child: const Icon(Icons.restaurant, size: 20), // Nanti pakai Image.network(log.food.imageUrl)
       ),
       title: Text(
         log.food.name,

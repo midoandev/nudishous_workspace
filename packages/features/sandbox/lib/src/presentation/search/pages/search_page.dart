@@ -42,6 +42,7 @@ class SearchPage extends HookWidget implements AutoRouteWrapper {
                     child: SearchBar(
                       controller: searchText,
                       hintText: l.search_hint,
+                      autoFocus: true,
                       elevation: const WidgetStatePropertyAll(0),
                       backgroundColor: WidgetStatePropertyAll(
                         context.colorScheme.surfaceContainerHighest.withValues(

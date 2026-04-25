@@ -7,9 +7,11 @@ import '../../../domain/entities/plate_item.dart';
 
 @injectable
 class AddMealCubit extends Cubit<AddMealState> {
-  final AddMealUseCase _addMealUseCase; // Panggil UseCase, jangan Repository langsung
+  final AddMealUseCase
+  _addMealUseCase; // Panggil UseCase, jangan Repository langsung
 
-  AddMealCubit(this._addMealUseCase) : super(const AddMealState());
+  AddMealCubit(this._addMealUseCase)
+    : super(AddMealState(selectedMealType: _guessMealType()));
 
   // 1. Tambah Makanan ke Piring (Data dari SearchPage)
   void addToPlate(FoodEntity food) {
@@ -24,10 +26,12 @@ class AddMealCubit extends Cubit<AddMealState> {
     );
 
     final updatedPlate = [...state.plateItems, newItem];
-    emit(state.copyWith(
-      plateItems: updatedPlate,
-      totalCalories: _calculateTotal(updatedPlate),
-    ));
+    emit(
+      state.copyWith(
+        plateItems: updatedPlate,
+        totalCalories: _calculateTotal(updatedPlate),
+      ),
+    );
   }
 
   // 2. Update Berat Makanan
@@ -39,10 +43,12 @@ class AddMealCubit extends Cubit<AddMealState> {
           : e;
     }).toList();
 
-    emit(state.copyWith(
-      plateItems: updatedList,
-      totalCalories: _calculateTotal(updatedList),
-    ));
+    emit(
+      state.copyWith(
+        plateItems: updatedList,
+        totalCalories: _calculateTotal(updatedList),
+      ),
+    );
   }
 
   // 3. Hapus dari Piring
@@ -51,10 +57,12 @@ class AddMealCubit extends Cubit<AddMealState> {
         .where((e) => e.food.code != item.food.code)
         .toList();
 
-    emit(state.copyWith(
-      plateItems: updatedPlate,
-      totalCalories: _calculateTotal(updatedPlate),
-    ));
+    emit(
+      state.copyWith(
+        plateItems: updatedPlate,
+        totalCalories: _calculateTotal(updatedPlate),
+      ),
+    );
   }
 
   // 4. Hitung Total Kalori (LaTeX Logic)
@@ -63,6 +71,19 @@ class AddMealCubit extends Cubit<AddMealState> {
     return items.fold(0, (sum, item) {
       return sum + ((item.weightGrams / 100) * item.food.calories100g);
     });
+  }
+
+  // Logic menebak waktu makan
+  static MealType _guessMealType() {
+    final hour = DateTime.now().hour;
+    if (hour >= 4 && hour < 11) return MealType.breakfast;
+    if (hour >= 11 && hour < 16) return MealType.lunch;
+    if (hour >= 16 && hour < 21) return MealType.dinner;
+    return MealType.snack;
+  }
+
+  void changeMealType(MealType type) {
+    emit(state.copyWith(selectedMealType: type));
   }
 
   // 5. Simpan Semua ke Database
@@ -77,15 +98,18 @@ class AddMealCubit extends Cubit<AddMealState> {
         await _addMealUseCase.execute(
           food: item.food,
           weight: item.weightGrams,
+          mealType: state.selectedMealType,
         );
       }
       // Jika sukses, ubah ke success
       emit(state.copyWith(status: AddMealStatus.success, plateItems: []));
     } catch (e) {
-      emit(state.copyWith(
-        status: AddMealStatus.failure,
-        errorMessage: e.toString(),
-      ));
+      emit(
+        state.copyWith(
+          status: AddMealStatus.failure,
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 }

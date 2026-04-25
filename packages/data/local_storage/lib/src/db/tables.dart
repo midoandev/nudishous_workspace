@@ -19,4 +19,5 @@ class MealLogs extends Table {
   TextColumn get foodCode => text().references(Foods, #code)();
   RealColumn get weightGram => real()();
   DateTimeColumn get eatenAt => dateTime()();
+  TextColumn get mealType => text()();
 }

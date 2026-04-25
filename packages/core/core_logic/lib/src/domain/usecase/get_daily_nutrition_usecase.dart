@@ -1,6 +1,5 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:injectable/injectable.dart';
-import '../entities/daily_nutrition_entity.dart';
-import '../repositories/meal_repository.dart';
 
 @injectable
 class GetDailyNutritionUseCase {

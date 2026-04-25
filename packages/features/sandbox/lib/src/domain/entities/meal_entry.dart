@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-enum MealType { breakfast, lunch, dinner, snack }
 
 class MealEntry extends Equatable {
   final String id;
@@ -10,7 +9,6 @@ class MealEntry extends Equatable {
   final num carbs;
   final num fat;
   final String imageUrl;
-  final MealType type;
   final double grams;
 
   const MealEntry({
@@ -21,7 +19,6 @@ class MealEntry extends Equatable {
     required this.carbs,
     required this.fat,
     required this.imageUrl,
-    this.type = MealType.snack,
     this.grams = 100.0,
   });
 
@@ -39,7 +36,6 @@ class MealEntry extends Equatable {
     carbs: carbs,
     fat: fat,
     imageUrl: '',
-    type: type,
   );
 
   @override

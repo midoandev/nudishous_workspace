@@ -13,12 +13,14 @@ class AddMealUseCase {
     required FoodEntity food,
     required double weight,
     DateTime? consumedAt,
+    required MealType mealType,
   }) async {
     // Logic: Repository akan handle pengecekan 'exist or insert' untuk FoodEntity
     await _repository.saveMeal(
       food: food,
       weight: weight,
       date: consumedAt ?? DateTime.now(),
+      mealType: mealType,
     );
   }
 }

@@ -1,5 +1,5 @@
+import 'package:core_logic/core_logic.dart';
 import 'package:equatable/equatable.dart';
-import 'meal_log_entity.dart';
 
 class DailyNutritionEntity extends Equatable {
   final List<MealLogEntity> logs;

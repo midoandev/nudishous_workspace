@@ -13,8 +13,11 @@ class EmptyStateWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const SizedBox(height: 60),
-          Icon(Icons.no_food_outlined, size: 80, color: colorScheme.outlineVariant),
+          Icon(
+            Icons.restaurant_outlined,
+            size: 48,
+            color: colorScheme.outline,
+          ),
           const SizedBox(height: 16),
           Text(
             context.s.sandbox.emptyState.title,

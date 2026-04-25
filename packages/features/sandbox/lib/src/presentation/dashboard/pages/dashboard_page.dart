@@ -7,9 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/sandbox.dart';
 
 import '../../add_meal/widgets/mid_end_float_fab_location.dart';
-import '../widgets/calorie_gauge.dart';
-import '../widgets/macro_item.dart';
-import '../widgets/meal_tile.dart';
+import '../widgets/build_macro_section.dart';
+import '../widgets/build_meal_history_section.dart';
+import '../widgets/build_sliver_header.dart';
 
 @RoutePage()
 class DashboardPage extends StatelessWidget implements AutoRouteWrapper {
@@ -25,120 +25,69 @@ class DashboardPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        floatingActionButtonLocation: const MidEndFloatFabLocation(),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // Navigasi ke SearchPage menggunakan AutoRoute
-            context.router.push(const AddMealRoute());
-          },
-          label: Text(context.s.sandbox.addMeal.title),
-          icon: const Icon(Icons.add),
-        ),
-        body: BlocBuilder<DashboardCubit, DashboardState>(
+    return Scaffold(
+      // floatingActionButtonLocation: const MidEndFloatFabLocation(),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () async {
+      //     await context.router.push(const AddMealRoute());
+      //
+      //     if (context.mounted) {
+      //       await context.read<DashboardCubit>().fetchDashboardData();
+      //     }
+      //   },
+      //   label: Text(context.s.sandbox.addMeal.title),
+      //   icon: const Icon(Icons.add_rounded),
+      //   elevation: 4,
+      // ),
+      body: SafeArea(
+        child: BlocBuilder<DashboardCubit, DashboardState>(
           builder: (context, state) {
             return switch (state) {
-              DashboardLoading() => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              DashboardLoaded(nutrition: final data, dailyGoal: final goal) =>
-                SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      // 1. Header Gauge
-                      CalorieGauge(consumed: data.totalCalories, goal: goal),
-
-                      const SizedBox(height: 32),
-
-                      // 2. Macro Breakdown (Protein, Carbs, Fat)
-                      buildMacroRow(context, data: data),
-
-                      const SizedBox(height: 32),
-
-                      // 3. Daily Meals List
-                      buildMealList(context, logs: data.logs),
-                    ],
-                  ),
-                ),
+              DashboardLoading() => const Center(child: AppLoadingScreen()),
               DashboardError(message: final msg) => Center(child: Text(msg)),
+              DashboardLoaded(nutrition: final data, dailyGoal: final goal) =>
+                CustomScrollView(
+                  slivers: [
+                    // 1. Header & Date Navigator
+                    BuildSliverHeader(goal: goal, data: data),
+
+                    // 2. Body Content
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16,
+                      ),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate([
+                          // Macro Progress Cards
+                          BuildMacroSection(data: data),
+
+                          const SizedBox(height: 32),
+
+                          // Meal History List
+                          BuildMealHistorySection(
+                            logs: state.mealGroups,
+                            addMeal: () async {
+                              await context.router.push(const AddMealRoute());
+                              if (context.mounted) {
+                                await context
+                                    .read<DashboardCubit>()
+                                    .fetchDashboardData();
+                              }
+                            },
+                          ),
+
+                          // Extra space for FAB
+                          const SizedBox(height: 100),
+                        ]),
+                      ),
+                    ),
+                  ],
+                ),
             };
           },
         ),
       ),
-    );
-  }
-
-  Widget buildMacroRow(
-    BuildContext context, {
-    required DailyNutritionEntity data,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-          child: MacroItem(
-            label: context.s.dashboard.protein,
-            // Nanti ganti s.dashboard.protein
-            value: data.totalProtein,
-            goal: 77,
-            // Nanti ambil dari PreferenceService
-            icon: Icons.egg_outlined,
-            color: Colors.orange,
-          ),
-        ),
-        Expanded(
-          child: MacroItem(
-            label: context.s.dashboard.carbs,
-            value: data.totalCarbs,
-            goal: 250,
-            icon: Icons.bakery_dining_outlined,
-            color: Colors.blue,
-          ),
-        ),
-        Expanded(
-          child: MacroItem(
-            label: context.s.dashboard.fat,
-            value: data.totalFat,
-            goal: 60,
-            icon: Icons.opacity,
-            color: Colors.green,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildMealList(
-    BuildContext context, {
-    required List<MealLogEntity> logs,
-  }) {
-    if (logs.isEmpty) {
-      return Center(child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 16),
-          Icon(Icons.fastfood_outlined, size: 48, color: context.colorScheme.primary),
-          const SizedBox(height: 8),
-          Text(context.s.sandbox.emptyState.title, style: context.textTheme.titleMedium?.copyWith()),
-          Text(context.s.sandbox.emptyState.subtitle, style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w400)),
-        ],
-      ));
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.s.dashboard.meals_today,
-          style: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 16),
-        // Kita map data logs menjadi widget list item
-        ...logs.map((log) => MealTile(log: log)),
-      ],
     );
   }
 }

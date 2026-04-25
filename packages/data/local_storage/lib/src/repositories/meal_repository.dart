@@ -31,6 +31,10 @@ class MealRepository implements IMealRepository {
         id: meal.id,
         weightGram: meal.weightGram,
         eatenAt: meal.eatenAt,
+        mealType: MealType.values.firstWhere(
+          (e) => e.name == meal.mealType,
+          orElse: () => MealType.snack,
+        ),
         food: FoodEntity(
           code: food.code,
           name: food.name,
@@ -50,6 +54,7 @@ class MealRepository implements IMealRepository {
     required FoodEntity food,
     required double weight,
     required DateTime date,
+    required MealType mealType,
   }) async {
     // Gunakan transaction supaya jika satu gagal, semua dibatalkan
     await _db.transaction(() async {
@@ -77,7 +82,7 @@ class MealRepository implements IMealRepository {
             MealLogsCompanion.insert(
               foodCode: food.code,
               weightGram: weight,
-              eatenAt: date,
+              eatenAt: date, mealType: mealType.name,
             ),
           );
     });

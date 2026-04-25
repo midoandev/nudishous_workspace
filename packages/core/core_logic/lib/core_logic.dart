@@ -23,3 +23,5 @@ export 'src/domain/entities/food_entity.dart';
 export 'src/domain/entities/daily_nutrition_entity.dart';
 export 'src/domain/entities/meal_log_entity.dart';
 export 'src/domain/entities/user_entity.dart';
+export 'src/domain/entities/meal_group.dart';
+export 'src/domain/entities/meal_type.dart';

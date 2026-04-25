@@ -5,6 +5,8 @@ import 'package:core_ui/core_ui.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sandbox/src/presentation/add_meal/widgets/build_meal_type_selector.dart';
+import 'package:sandbox/src/presentation/add_meal/widgets/meal_type_selector.dart';
 
 import '../../../router/sandbox_router.gr.dart';
 import '../cubits/add_meal_cubit.dart';
@@ -30,11 +32,9 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
     return BlocBuilder<AddMealCubit, AddMealState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(s.title),
-            centerTitle: true,
-          ),
+          appBar: AppBar(title: Text(s.title), centerTitle: true),
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 1. Search Trigger (Pasif)
               Padding(
@@ -42,21 +42,33 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
                 child: InkWell(
                   onTap: () async {
                     // Navigasi ke SearchPage dan tunggu hasilnya
-                    final food = await context.router.push<FoodEntity>(const SearchRoute());
+                    final food = await context.router.push<FoodEntity>(
+                      const SearchRoute(),
+                    );
                     if (food != null) {
                       cubit.addToPlate(food);
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
-                      color: context.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+                      color: context.colorScheme.surfaceContainerHighest
+                          .withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: context.colorScheme.outlineVariant),
+                      border: Border.all(
+                        color: context.colorScheme.outlineVariant,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Icon(FeatherIcons.search, size: 18, color: context.colorScheme.primary),
+                        Icon(
+                          FeatherIcons.search,
+                          size: 18,
+                          color: context.colorScheme.primary,
+                        ),
                         const SizedBox(width: 12),
                         Text(
                           s.searchPlaceholder,
@@ -69,19 +81,31 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
                   ),
                 ),
               ),
-
+              MealTypeSelector(selectedType: state.selectedMealType, onSelected: (newSelection) {
+                context.read<AddMealCubit>().changeMealType(
+                  newSelection,
+                );
+              },),
+              // BuildMealTypeSelector(
+              //   state: state,
+              //   onSelectionChanged: (Set<MealType> newSelection) {
+              //     context.read<AddMealCubit>().changeMealType(
+              //       newSelection.first,
+              //     );
+              //   },
+              // ),
               // 2. Plate List Section
               Expanded(
                 child: state.plateItems.isEmpty
                     ? _buildEmptyState(context, s)
                     : PlateList(
-                  plateItems: state.plateItems,
-                  removeItem: (item) => cubit.removeFromPlate(item),
-                  onSubmit: (val, item) {
-                    final weight = double.tryParse(val) ?? 0;
-                    cubit.updateWeight(item, weight);
-                  },
-                ),
+                        plateItems: state.plateItems,
+                        removeItem: (item) => cubit.removeFromPlate(item),
+                        onSubmit: (val, item) {
+                          final weight = double.tryParse(val) ?? 0;
+                          cubit.updateWeight(item, weight);
+                        },
+                      ),
               ),
 
               // 3. Bottom Summary & Action
@@ -99,18 +123,28 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.set_meal_outlined, size: 48, color: context.colorScheme.outlineVariant),
+          Icon(
+            Icons.set_meal_outlined,
+            size: 48,
+            color: context.colorScheme.outlineVariant,
+          ),
           const SizedBox(height: 16),
           Text(
             context.s.sandbox.addMeal.emptyPlate,
-            style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.outline),
+            style: context.textTheme.titleMedium?.copyWith(
+              color: context.colorScheme.outline,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBottomAction(BuildContext context, AddMealState state, AddMealCubit cubit) {
+  Widget _buildBottomAction(
+    BuildContext context,
+    AddMealState state,
+    AddMealCubit cubit,
+  ) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 16, 20, context.mq.padding.bottom + 16),
       decoration: BoxDecoration(
@@ -129,7 +163,10 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(context.s.sandbox.addMeal.totalSummary, style: context.textTheme.titleSmall),
+              Text(
+                context.s.sandbox.addMeal.totalSummary,
+                style: context.textTheme.titleSmall,
+              ),
               Text(
                 "${state.totalCalories.toInt()} kcal",
                 style: context.textTheme.titleLarge?.copyWith(
@@ -149,7 +186,9 @@ class AddMealPage extends StatelessWidget implements AutoRouteWrapper {
               },
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               child: Text(context.s.sandbox.search.add_to_diary),
             ),
