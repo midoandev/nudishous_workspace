@@ -22,7 +22,7 @@ dependencies:
   feather_icons: any
 
   core_logic: any
-  local_storage: any
+  core_i18n: any
 
   vector_graphics: any
 dev_dependencies:

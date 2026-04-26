@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/sandbox.dart';
 
-import '../add_meal/widgets/mid_end_float_fab_location.dart';
 import 'widgets/build_macro_section.dart';
 import 'widgets/build_meal_history_section.dart';
 import 'widgets/build_sliver_header.dart';

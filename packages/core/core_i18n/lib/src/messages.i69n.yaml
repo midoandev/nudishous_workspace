@@ -2,6 +2,9 @@ app:
   title: "Nudishous"
   tagline: "Smart Nutrition Planner"
 
+common:
+  offline_mode: "No Internet Connection"
+
 sandbox:
   title: "Sandbox"
   greeting: "Let's track your progress ✌️"
@@ -98,7 +101,7 @@ profile:
   guest_subtitle: "Sign in to sync your data"
   section_account: "Account"
   section_app: "Application"
-  personal_info: "Personal Information"
+  personal_info: "My Account"
   faq: "FAQ"
   login: "Login or Register"
   logout: "Logout"

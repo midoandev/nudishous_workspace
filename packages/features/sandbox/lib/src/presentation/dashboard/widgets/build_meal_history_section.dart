@@ -54,37 +54,4 @@ class BuildMealHistorySection extends StatelessWidget {
       ],
     );
   }
-
-  Widget _buildEmptyMealState(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: context.colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.3,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: context.colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            Icons.restaurant_outlined,
-            size: 48,
-            color: context.colorScheme.outline,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            context.s.sandbox.emptyState.title,
-            textAlign: TextAlign.center,
-            style: context.textTheme.bodyMedium?.copyWith(
-              color: context.colorScheme.outline,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -15,6 +15,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider.value(value: getIt<LocaleCubit>()),
         BlocProvider.value(value: getIt<ThemeCubit>()),
+        BlocProvider.value(value: getIt<ConnectivityCubit>()),
       ],
       child: const _AppView(),
     );

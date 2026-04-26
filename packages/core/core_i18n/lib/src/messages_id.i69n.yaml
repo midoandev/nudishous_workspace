@@ -2,6 +2,9 @@ app:
   title: "Nudishous"
   tagline: "Perencana Nutrisi Pintar"
 
+common:
+  offline_mode: "Tidak ada koneksi internet"
+
 sandbox:
   title: "Sandbox"
   greeting: "Ayo pantau progresmu ✌️"
@@ -97,7 +100,7 @@ profile:
   guest_subtitle: "Masuk untuk simpan data kamu"
   section_account: "Akun"
   section_app: "Aplikasi"
-  personal_info: "Informasi Pribadi"
+  personal_info: "Akun Saya"
   faq: "Tanya Jawab (FAQ)"
   login: "Masuk atau Daftar"
   logout: "Keluar Akun"

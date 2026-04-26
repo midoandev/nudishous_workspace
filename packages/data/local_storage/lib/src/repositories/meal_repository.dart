@@ -10,44 +10,6 @@ class MealRepository implements IMealRepository {
 
   MealRepository(this._db);
 
-  // @override
-  // Future<List<MealLogEntity>> getLogsByDate(DateTime date) async {
-  //   final query =
-  //       _db.select(_db.mealLogs).join([
-  //         innerJoin(_db.foods, _db.foods.code.equalsExp(_db.mealLogs.foodCode)),
-  //       ])..where(
-  //         _db.mealLogs.eatenAt.year.equals(date.year) &
-  //             _db.mealLogs.eatenAt.month.equals(date.month) &
-  //             _db.mealLogs.eatenAt.day.equals(date.day),
-  //       );
-  //
-  //   final results = await query.get();
-  //
-  //   return results.map((row) {
-  //     final meal = row.readTable(_db.mealLogs);
-  //     final food = row.readTable(_db.foods);
-  //
-  //     return MealLogEntity(
-  //       id: meal.id,
-  //       weightGram: meal.weightGram,
-  //       eatenAt: meal.eatenAt,
-  //       mealType: MealType.values.firstWhere(
-  //         (e) => e.name == meal.mealType,
-  //         orElse: () => MealType.snack,
-  //       ),
-  //       food: FoodEntity(
-  //         code: food.code,
-  //         name: food.name,
-  //         brand: food.brand ?? '',
-  //         calories100g: food.calories100g,
-  //         proteins100g: food.proteins100g,
-  //         carbs100g: food.carbs100g,
-  //         fats100g: food.fats100g,
-  //         imageUrl: food.imageUrl ?? '',
-  //       ),
-  //     );
-  //   }).toList();
-  // }
   @override
   Future<List<MealLogEntity>> getLogsByDate(DateTime date) async {
     // Buat rentang waktu hari ini 00:00:00 sampai 23:59:59

@@ -24,6 +24,9 @@ dependencies:
   equatable: any
 
   package_info_plus: 9.0.1
+  connectivity_plus: ^7.1.1
+
+  local_storage: any
 
 dev_dependencies:
   flutter_test:

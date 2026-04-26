@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
