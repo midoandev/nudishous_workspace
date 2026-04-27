@@ -1,5 +1,7 @@
 import 'package:core_logic/core_logic.dart';
 
+import '../../../domain/entities/food_entity.dart';
+
 sealed class SearchState extends BaseState {
   const SearchState();
 

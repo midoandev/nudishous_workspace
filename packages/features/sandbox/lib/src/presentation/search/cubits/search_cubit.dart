@@ -1,6 +1,6 @@
-import 'package:core_logic/core_logic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sandbox/src/domain/usecase/search_food_use_case.dart';
 
 import 'search_state.dart';
 

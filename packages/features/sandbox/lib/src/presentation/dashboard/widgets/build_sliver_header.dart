@@ -1,25 +1,26 @@
 import 'package:core_i18n/core_i18n.dart';
-import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/daily_nutrition_entity.dart';
 import 'calorie_arc_painter.dart';
 
 class BuildSliverHeader extends StatelessWidget {
   final DailyNutritionEntity data;
-  final double goal;
+  final DateTime selectedDate;
+  final Function(DateTime)? updateDate;
 
-  const BuildSliverHeader({super.key, required this.data, required this.goal});
+  const BuildSliverHeader({super.key,required this.data, required this.selectedDate, this.updateDate});
 
   @override
   Widget build(BuildContext context) {
-    final s = context.s.dashboard;
+    final s = context.s.sandbox;
     final consumed = data.totalCalories;
-    final remaining = goal - consumed;
+    final remaining = data.remainingCalories;
     final displayRemaining = remaining < 0 ? 0 : remaining.toInt();
 
     final isOverBudget = remaining < 0;
-    final double progress = (consumed / goal).clamp(0.0, 1.0);
+    final double progress = (consumed / data.calorieGoal).clamp(0.0, 1.0);
     final gaugeColor = isOverBudget ? Colors.red : context.colorScheme.primary;
 
     return SliverToBoxAdapter(
@@ -47,17 +48,17 @@ class BuildSliverHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Sabtu, 25 April",
+                      context.formatFullDate(DateTime.now()),
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.outline,
                       ),
                     ),
                   ],
                 ),
-                IconButton.filledTonal(
-                  onPressed: () {},
-                  icon: const Icon(Icons.calendar_month_rounded),
-                ),
+                // IconButton.filledTonal(
+                //   onPressed: () => _selectDate(context),
+                //   icon: const Icon(Icons.calendar_month_rounded),
+                // ),
               ],
             ),
             const SizedBox(height: 32),
@@ -67,7 +68,7 @@ class BuildSliverHeader extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: 120, // Konsisten dengan header
+                  height: 150, // Konsisten dengan header
                   width: MediaQueryExtension(context).screenWidth * .65,
                   child: CustomPaint(
                     painter: CalorieArcPainter(
@@ -78,7 +79,7 @@ class BuildSliverHeader extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 20,
+                  bottom: 0,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -110,4 +111,28 @@ class BuildSliverHeader extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: context.colorScheme.copyWith(
+              primary: context.colorScheme.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null && picked != selectedDate && context.mounted) {
+      updateDate?.call(picked);
+    }
+  }
+
 }

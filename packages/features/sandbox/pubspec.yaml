@@ -23,6 +23,7 @@ dependencies:
   auto_route: any
   equatable: any
   dartz: any
+  fl_chart: ^1.2.0
 
   core_logic: any
   core_ui: any

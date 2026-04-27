@@ -1,10 +1,11 @@
 import 'package:injectable/injectable.dart';
+import 'package:sandbox/src/domain/repositories/sandbox_repository.dart';
 
-import '../../../core_logic.dart';
+import '../entities/food_entity.dart';
 
 @injectable
 class SearchFoodUseCase {
-  final IFoodRepository _repository;
+  final SandboxRepository _repository;
 
   SearchFoodUseCase(this._repository);
 

@@ -1,18 +1,18 @@
-import 'package:core_logic/core_logic.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sandbox/src/presentation/add_meal/cubits/add_meal_state.dart';
 
+import '../../../domain/entities/food_entity.dart';
+import '../../../domain/entities/meal_type.dart';
 import '../../../domain/entities/plate_item.dart';
+import '../../../domain/usecase/add_meal_use_case.dart';
 
 @injectable
 class AddMealCubit extends Cubit<AddMealState> {
-  final AddMealUseCase
-  _addMealUseCase; // Panggil UseCase, jangan Repository langsung
+  final AddMealUseCase _addMealUseCase; // Panggil UseCase, jangan Repository langsung
 
   AddMealCubit(this._addMealUseCase)
-    : super(AddMealState(selectedMealType: _guessMealType()));
+      : super(AddMealState(selectedMealType: _guessMealType()));
 
   // 1. Tambah Makanan ke Piring (Data dari SearchPage)
   void addToPlate(FoodEntity food) {
@@ -76,7 +76,9 @@ class AddMealCubit extends Cubit<AddMealState> {
 
   // Logic menebak waktu makan
   static MealType _guessMealType() {
-    final hour = DateTime.now().hour;
+    final hour = DateTime
+        .now()
+        .hour;
     if (hour >= 4 && hour < 11) return MealType.breakfast;
     if (hour >= 11 && hour < 16) return MealType.lunch;
     if (hour >= 16 && hour < 21) return MealType.dinner;
@@ -90,28 +92,28 @@ class AddMealCubit extends Cubit<AddMealState> {
   // 5. Simpan Semua ke Database
   Future<void> saveAllMeals() async {
     if (state.plateItems.isEmpty) return;
-
-    // Ubah STATUS-nya, bukan isSaving-nya
     emit(state.copyWith(status: AddMealStatus.saving));
 
-    try {
-      for (final item in state.plateItems) {
-        await _addMealUseCase.execute(
-          food: item.food,
-          weight: item.weightGrams,
-          mealType: state.selectedMealType,
-        );
-      }
-      // Jika sukses, ubah ke success
-      emit(state.copyWith(status: AddMealStatus.success, plateItems: []));
-    } catch (e) {
-      debugPrint('errror $e');
-      emit(
-        state.copyWith(
-          status: AddMealStatus.failure,
-          errorMessage: e.toString(),
-        ),
-      );
-    }
+    final date = DateTime.now();
+    final result = await _addMealUseCase.call(
+      AddMealParams(
+        items: state.plateItems, // ← semua item sekaligus
+        mealType: state.selectedMealType,
+        eatenAt: date.copyWith(day: date.day),
+      ),
+    );
+
+    result.fold(
+          (failure) =>
+          emit(state.copyWith(
+            status: AddMealStatus.failure,
+            errorMessage: failure.message,
+          )),
+          (_) =>
+          emit(state.copyWith(
+            status: AddMealStatus.success,
+            plateItems: [],
+          )),
+    );
   }
 }

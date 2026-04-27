@@ -8,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sandbox/src/presentation/search/cubits/search_cubit.dart';
 import 'package:sandbox/src/presentation/search/widgets/search_error_view.dart';
 
+import '../../domain/entities/food_entity.dart';
 import 'cubits/search_state.dart';
 import 'widgets/build_info_state.dart';
 import 'widgets/build_result_list.dart';

@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
     return SafeArea(
       bottom: false,
       top: false,
-      child: Center(child: AppAssets.images.icLauncher.image(),)
+      child: Scaffold(body: Center(child: AppAssets.images.icLauncher.image(),))
     );
   }
 }

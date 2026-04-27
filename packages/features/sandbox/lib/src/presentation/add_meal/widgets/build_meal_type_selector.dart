@@ -1,7 +1,7 @@
 import 'package:core_i18n/core_i18n.dart';
-import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/meal_type.dart';
 import '../cubits/add_meal_state.dart';
 
 class BuildMealTypeSelector extends StatelessWidget {

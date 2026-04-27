@@ -4,6 +4,25 @@ app:
 
 common:
   offline_mode: "No Internet Connection"
+  day_monday: "Monday"
+  day_tuesday: "Tuesday"
+  day_wednesday: "Wednesday"
+  day_thursday: "Thursday"
+  day_friday: "Friday"
+  day_saturday: "Saturday"
+  day_sunday: "Sunday"
+  month_january: "January"
+  month_february: "February"
+  month_march: "March"
+  month_april: "April"
+  month_may: "May"
+  month_june: "June"
+  month_july: "July"
+  month_august: "August"
+  month_september: "September"
+  month_october: "October"
+  month_november: "November"
+  month_december: "December"
 
 sandbox:
   title: "Sandbox"
@@ -17,6 +36,17 @@ sandbox:
   dinner: "Dinner"
   snack: "Snack"
   kcal: "kcal"
+  consumed: "Consumed"
+  calories: "Calories"
+  protein: "Protein"
+  carbs: "Carbs"
+  fat: "Fat"
+  meals_today: "Meals Today"
+  activity:
+    title: "Activity"
+    filter_7_days: "Last 7 Days"
+    filter_30_days: "Last 30 Days"
+    filter_month: "This Month"
   emptyState:
     title: "No data today"
     subtitle: "Start tracking your progress now!"
@@ -138,12 +168,10 @@ settings:
   delete_confirm_title: "Delete your account?"
   delete_confirm_desc: "This action cannot be undone. All your calorie data will be permanently deleted."
 
-dashboard:
-  dashboard_title: "Daily Overview"
-  remaining: "Remaining"
-  consumed: "Consumed"
-  calories: "Calories"
-  protein: "Protein"
-  carbs: "Carbs"
-  fat: "Fat"
-  meals_today: "Meals Today"
+meals:
+  title: "Meal History"
+  view_all: "See All"
+  empty_state: "No meal history found"
+  items_count: "{count} items"
+  today: "Today"
+  yesterday: "Yesterday"

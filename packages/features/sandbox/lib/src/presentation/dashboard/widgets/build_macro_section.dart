@@ -1,7 +1,8 @@
 import 'package:core_i18n/core_i18n.dart';
-import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/entities/daily_nutrition_entity.dart';
 
 class BuildMacroSection extends StatelessWidget {
   final DailyNutritionEntity data;
@@ -12,11 +13,11 @@ class BuildMacroSection extends StatelessWidget {
   Widget build(BuildContext context) {
       return Row(
         children: [
-          _buildMacroCard(context, context.s.dashboard.protein, data.totalProtein, 77, Colors.orange, Icons.egg_rounded),
+          _buildMacroCard(context, context.s.sandbox.protein, data.totalProtein, 77, Colors.orange, Icons.egg_rounded),
           const SizedBox(width: 12),
-          _buildMacroCard(context, context.s.dashboard.carbs, data.totalCarbs, 250, Colors.blue, Icons.bakery_dining_rounded),
+          _buildMacroCard(context, context.s.sandbox.carbs, data.totalCarbs, 250, Colors.blue, Icons.bakery_dining_rounded),
           const SizedBox(width: 12),
-          _buildMacroCard(context, context.s.dashboard.fat, data.totalFat, 60, Colors.green, Icons.water_drop_rounded),
+          _buildMacroCard(context, context.s.sandbox.fat, data.totalFat, 60, Colors.green, Icons.water_drop_rounded),
         ],
       );
     }

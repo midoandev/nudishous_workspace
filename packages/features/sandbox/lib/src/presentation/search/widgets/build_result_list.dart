@@ -1,7 +1,8 @@
 import 'package:core_i18n/core_i18n.dart';
-import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
+
+import '../../../domain/entities/food_entity.dart';
 
 class BuildResultList extends StatelessWidget {
   final List<FoodEntity> list;

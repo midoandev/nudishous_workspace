@@ -1,10 +1,13 @@
 import 'package:core_i18n/core_i18n.dart';
-import 'package:core_logic/core_logic.dart';
 import 'package:core_ui/core_ui.dart';
 import 'package:flutter/material.dart';
 
+import '../../domain/entities/meal_item_entity.dart';
+import '../../domain/entities/meal_session_entity.dart';
+import '../../domain/entities/meal_type.dart';
+
 class MealGroupCard extends StatelessWidget {
-  final MealGroup group;
+  final MealSessionEntity group;
 
   const MealGroupCard({super.key, required this.group});
 
@@ -51,10 +54,10 @@ class MealGroupCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const Icon(Icons.av_timer_rounded, size: 8),
+                  const Icon(Icons.timelapse_rounded, size: 12),
                   const SizedBox(width: 4),
                   Text(
-                    "${group.timestamp.hour}:${group.timestamp.minute
+                    "${group.eatenAt.hour}:${group.eatenAt.minute
                         .toString()
                         .padLeft(2, '0')}",
                     style: context.textTheme.labelSmall,
@@ -74,13 +77,15 @@ class MealGroupCard extends StatelessWidget {
                 ),
               ),
               Row(
-                children: [
+                children: <Widget>[
                   _buildIconText(context, icon: Icons.egg_rounded,
                       color: Colors.orange,
-                      text: '${group.totalCalories.toInt()}'),
+                      text: '${group.totalProtein.toInt()}'),
+                  const SizedBox(width: 8),
                   _buildIconText(context, color: Colors.blue,
                       icon: Icons.bakery_dining_rounded,
                       text: '${group.totalCarbs.toInt()}'),
+                  const SizedBox(width: 8),
                   _buildIconText(context, color: Colors.green,
                       icon: Icons.water_drop_rounded,
                       text: '${group.totalFat.toInt()}')
@@ -93,7 +98,7 @@ class MealGroupCard extends StatelessWidget {
     );
   }
 
-  Widget _buildMealItem(BuildContext context, MealLogEntity item) {
+  Widget _buildMealItem(BuildContext context, MealItemEntity item) {
     return ListTile(
       dense: true,
       leading: ImageCard(url: item.food.imageUrl),
@@ -109,9 +114,8 @@ class MealGroupCard extends StatelessWidget {
       {required IconData icon, required Color color, required String text}) {
     return Row(
       children: [
-        const SizedBox(width: 8),
-        Icon(icon, color: color, size: 8),
-        const SizedBox(width: 4),
+        Icon(icon, color: color, size:12),
+        const SizedBox(width: 2),
         Text(
           "${text}g",
           style: context.textTheme.labelSmall,

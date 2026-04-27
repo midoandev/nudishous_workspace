@@ -1,5 +1,3 @@
-// ignore_for_file: unused_import
-
 import 'package:auto_route/auto_route.dart';
 import 'package:core_i18n/core_i18n.dart';
 import 'package:core_logic/core_logic.dart';
@@ -7,9 +5,9 @@ import 'package:core_ui/core_ui.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sandbox/src/presentation/add_meal/widgets/build_meal_type_selector.dart';
 import 'package:sandbox/src/presentation/add_meal/widgets/meal_type_selector.dart';
 
+import '../../domain/entities/food_entity.dart';
 import '../../router/sandbox_router.gr.dart';
 import 'cubits/add_meal_cubit.dart';
 import 'cubits/add_meal_state.dart';

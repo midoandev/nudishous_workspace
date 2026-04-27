@@ -3,14 +3,18 @@ import 'dart:async';
 import 'package:core_logic/core_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:openfoodfacts/openfoodfacts.dart' hide Nutriments;
-
-import '../models/food_item.dart';
+import 'package:openfood_api/openfood_api.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 
 @lazySingleton
-class OpenFoodApiService {
+class OpenfoodService {
+
+  OpenfoodService() {
+    _initialize();
+  }
+
   /// Inisialisasi dikirim dari main app/shell agar fleksibel
-  void initialize() {
+  void _initialize() {
     final currentFlavor = FlavorConfig.instance;
 
     OpenFoodAPIConfiguration.userAgent = UserAgent(
@@ -32,11 +36,12 @@ class OpenFoodApiService {
     );
 
     debugPrint(
-      'fasd ${currentFlavor.offUser} ${currentFlavor.offPassword} ${currentFlavor.apiBaseUrl} ${currentFlavor.appTitle}',
+      'fasd ${currentFlavor.offUser} ${currentFlavor
+          .offPassword} ${currentFlavor.apiBaseUrl} ${currentFlavor.appTitle}',
     );
   }
 
-  Future<List<FoodItem>> search(String query) async {
+  Future<List<FoodItemDto>> search(String query) async {
     // Validasi input minimal 3 karakter untuk efisiensi API
     if (query.isEmpty || query.length < 3) return [];
 
@@ -82,7 +87,8 @@ class OpenFoodApiService {
 
       // Log status untuk debugging M.Kom style
       debugPrint(
-        '🔍 Search Result Status: ${result.pageSize} ${result.page} ${result.count} ${result.pageCount}',
+        '🔍 Search Result Status: ${result.pageSize} ${result.page} ${result
+            .count} ${result.pageCount}',
       );
 
       if (result.products == null) return [];
@@ -95,7 +101,7 @@ class OpenFoodApiService {
 
         final nut = product.nutriments;
 
-        return FoodItem(
+        return FoodItemDto(
           code: product.barcode,
           productName: product.productName,
           brands: product.brands,
@@ -110,7 +116,7 @@ class OpenFoodApiService {
           novaGroup: product.novaGroup,
 
           // Mapping ke nested class Nutriments milik kita
-          nutriments: Nutriments(
+          nutriments: NutrimentsDto(
             energyKcal100G: nut?.getValue(
               Nutrient.energyKCal,
               PerSize.oneHundredGrams,

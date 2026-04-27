@@ -1,6 +1,6 @@
-import 'package:core_logic/core_logic.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/meal_type.dart';
 import '../../../domain/entities/plate_item.dart';
 
 enum AddMealStatus { initial, loading, saving, success, failure }

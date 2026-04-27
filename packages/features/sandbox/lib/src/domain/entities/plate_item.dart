@@ -1,8 +1,9 @@
-import 'package:core_logic/core_logic.dart';
 import 'package:equatable/equatable.dart';
 
+import 'food_entity.dart';
+
 class PlateItem extends Equatable {
-  final String id; // ID unik untuk item di piring (misal: timestamp)
+  final String id;
   final FoodEntity food;
   final double weightGrams;
 
